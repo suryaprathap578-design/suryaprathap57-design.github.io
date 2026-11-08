@@ -1,0 +1,45 @@
+<!--
+title: Projects & Portfolio | Residential, Commercial, Industrial, PEB, Steel & Facades | SUBHA INFRA
+description: Explore the SUBHA INFRA portfolio — residential, commercial, industrial, PEB, steel structures, facades and tensile structures, each labelled by status.
+nav: projects
+image: /assets/project-images/subha-infra-residential-buildings-14.jpg
+-->
+<section class="ph ph-full" style="min-height:78vh">
+  <div class="ph-bg"><img data-slot="PROJECTS-HERO" src="{{R14}}" alt="Vertical-fin timber villa — residential design by SUBHA INFRA" fetchpriority="high" data-parallax="0.08"></div>
+  <div class="wrap ph-in">
+    <nav class="crumbs reveal" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span>Projects</span></nav>
+    <span class="eyebrow mt-l reveal d1">Portfolio</span>
+    <h1 class="h1 reveal d2" style="max-width:16ch">Architecture &amp; structures, at every scale.</h1>
+    <p class="lead reveal d3">Homes, workplaces, commercial buildings, warehouses and steel structures — {{PROJECT_TOTAL}} studies across seven categories.</p>
+  </div>
+</section>
+
+<div class="pf-bar">
+  <div class="wrap">
+    <div class="filters" data-filter-group="pf" data-hash role="group" aria-label="Filter projects by category">{{PROJECT_CHIPS}}</div>
+    <div class="pf-note"><span><b data-filter-count="pf">{{PROJECT_TOTAL}}</b> projects shown</span><span>Each project is labelled as <b>Design visualisation</b> or <b>Construction stage</b>.</span></div>
+  </div>
+</div>
+
+<section class="sec" style="padding-top:clamp(48px,6vw,88px)">
+  <div class="wrap">
+    <div class="masonry">
+      {{PROJECT_GRID}}
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-navy">
+  <div class="wrap feature-pair">
+    <a class="card-cine zoom reveal-img" href="/projects/portal-frame-erection/">
+      <div class="img"><img data-slot="PROJECTS-STEEL" src="{{S02}}" alt="Portal frame erection with crane — steel structure by SUBHA INFRA" loading="lazy"></div>
+      <div class="card-cine-body"><div class="meta-row"><span>Steel Structures</span><span>Construction stage</span></div><h2 class="h2-s">Steel on site.</h2><p>Portal frames, bracing and secondary members going up — the stage where detailing accuracy is proven.</p></div>
+    </a>
+    <div class="vm-card reveal" style="border:1px solid var(--line-d);display:flex;flex-direction:column;justify-content:center">
+      <span class="eyebrow">A note on imagery</span>
+      <h2 class="h2-s">Honest labelling, always.</h2>
+      <p>Our portfolio includes design visualisations that illustrate design directions, and construction-stage photographs from site. Every project page states which it is. Client names, locations and project values are shared only with permission.</p>
+      <div class="actions mt-m"><a class="btn btn-bronze" href="/contact/">Discuss your project {{AR}}</a></div>
+    </div>
+  </div>
+</section>

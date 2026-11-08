@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>SUBHA INFRA · Admin</title>
+<style>
+  body{margin:0;min-height:100vh;display:grid;place-items:center;background:#101D2B;color:#fff;font:15px/1.5 Inter,Segoe UI,Arial,sans-serif;text-align:center;padding:24px}
+  b{letter-spacing:.2em;font-size:22px}small{display:block;color:#E5CF9F;letter-spacing:.3em;font-size:11px;margin:6px 0 24px}
+  a{color:#E5CF9F}
+</style>
+</head>
+<body>
+<div>
+  <b>SUBHA INFRA</b><small>IMAGE CMS</small>
+  <p id="msg">Opening the admin panel…</p>
+</div>
+<!-- Sends the admin to the Google Apps Script CMS (URL set in js/site-config.js → cmsApi) -->
+<script src="/js/site-config.js"></script>
+<script>
+  var url = (window.SITE_CONFIG && window.SITE_CONFIG.cmsApi || '').trim();
+  if (url) location.replace(url);
+  else document.getElementById('msg').innerHTML = 'The admin URL is not set yet.<br>Paste your Apps Script web app URL into <code>js/site-config.js</code> → <code>cmsApi</code>.';
+</script>
+</body>
+</html>

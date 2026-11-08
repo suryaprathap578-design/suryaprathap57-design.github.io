@@ -1,0 +1,1016 @@
+<script>
+(() => {
+'use strict';
+/* =====================================================================
+   SUBHA INFRA — Image CMS admin app
+   ===================================================================== */
+const I = {
+  dash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>',
+  home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>',
+  svc: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V9l8-5 8 5v11"/><path d="M9 20v-7h6v7"/><path d="M4 20h16"/></svg>',
+  place: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>',
+  prj: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-4h6v4M9 10h.01M15 10h.01M9 14h.01M15 14h.01"/></svg>',
+  img: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 17l-5-5-9 8"/></svg>',
+  cat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>',
+  pub: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg>',
+  set: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>',
+  search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>',
+  up: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg>',
+  x: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  edit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>',
+  repl: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8"/><path d="M4 3v5h5"/><path d="M4 13a8 8 0 0 0 14.3 4.9L20 16"/><path d="M20 21v-5h-5"/></svg>',
+  trash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>',
+  ext: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 4h6v6M20 4l-9 9"/><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg>',
+  eye: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+  dl: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 4v12M7 11l5 5 5-5M4 20h16"/></svg>',
+  grip: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.5"/><circle cx="15" cy="6" r="1.5"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="9" cy="18" r="1.5"/><circle cx="15" cy="18" r="1.5"/></svg>',
+  warn: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></svg>',
+  info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/></svg>',
+  plus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>',
+  left: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg>',
+  right: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>',
+  out: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4M10 16l-4-4 4-4M6 12h10"/></svg>'
+};
+
+/* ---------------- state ---------------- */
+const S = {
+  token: null, user: null, d: null, view: 'dashboard', page: null, tray: false,
+  sel: new Set(), f: { q: '', cat: '', sub: '', prj: '', page: '', status: '', sort: 'order' }, limit: 120, reorder: false, only: null,
+  prjF: { q: '', cat: '' }
+};
+const store = {
+  get(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } },
+  set(k, v) { try { v == null ? sessionStorage.removeItem(k) : sessionStorage.setItem(k, v); } catch (e) { } }
+};
+const $ = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const fmtDate = iso => { if (!iso) return '—'; const d = new Date(iso); return isNaN(d) ? '—' : d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }); };
+const fmtTime = iso => { if (!iso) return '—'; const d = new Date(iso); return isNaN(d) ? '—' : d.toLocaleString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }); };
+const kb = n => n > 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.round(n / 1024) + ' KB';
+const truthy = v => v === true || String(v).toUpperCase() === 'TRUE';
+const opt = (v, label, cur) => `<option value="${esc(v)}" ${String(v) === String(cur) ? 'selected' : ''}>${esc(label)}</option>`;
+
+/* ---------------- server ---------------- */
+let busy = 0;
+function setBusy(d) { busy += d; $('#loading').hidden = busy <= 0; }
+function call(action, args) {
+  setBusy(1);
+  return new Promise((res, rej) => {
+    google.script.run
+      .withSuccessHandler(r => {
+        setBusy(-1);
+        if (!r) return rej(new Error('No response from server'));
+        if (r.ok) return res(r.data);
+        if (r.error === 'AUTH') { toast(r.message, 'err'); logout(true); return rej(new Error(r.message)); }
+        rej(new Error(r.error));
+      })
+      .withFailureHandler(e => { setBusy(-1); rej(e instanceof Error ? e : new Error(String(e && e.message || e))); })
+      .rpc(S.token, action, args || {});
+  });
+}
+const fail = e => toast(e.message || String(e), 'err');
+
+/* ---------------- toast / modal ---------------- */
+function toast(msg, kind) {
+  const t = document.createElement('div');
+  t.className = 'toast ' + (kind || '');
+  t.innerHTML = msg;
+  $('#toasts').appendChild(t);
+  setTimeout(() => t.remove(), kind === 'err' ? 7000 : 4200);
+}
+function modal(html, cls) {
+  const bg = document.createElement('div');
+  bg.className = 'modal-bg';
+  bg.innerHTML = `<div class="modal ${cls || ''}" role="dialog" aria-modal="true">${html}</div>`;
+  document.body.appendChild(bg);
+  const close = () => { bg.remove(); document.removeEventListener('keydown', onKey); };
+  const onKey = e => { if (e.key === 'Escape' && document.body.lastElementChild === bg) close(); };
+  document.addEventListener('keydown', onKey);
+  bg.addEventListener('mousedown', e => { if (e.target === bg) close(); });
+  bg.addEventListener('click', e => { if (e.target.closest('[data-close]')) { e.preventDefault(); close(); } });
+  return { el: bg, close };
+}
+function confirmBox(title, html, okLabel, danger) {
+  return new Promise(res => {
+    const m = modal(`<div class="modal-h"><h2>${esc(title)}</h2><button class="icon-btn" data-close>${I.x}</button></div>
+      <div class="modal-b">${html}</div>
+      <div class="modal-f"><button class="btn" data-close>Cancel</button><button class="btn ${danger ? 'btn-danger' : 'btn-primary'}" data-ok>${esc(okLabel || 'OK')}</button></div>`);
+    let done = false;
+    $('[data-ok]', m.el).onclick = () => { done = true; m.close(); res(true); };
+    new MutationObserver((_, o) => { if (!document.body.contains(m.el)) { o.disconnect(); if (!done) res(false); } }).observe(document.body, { childList: true });
+  });
+}
+
+/* ---------------- derived data ---------------- */
+function src(img, w) {
+  if (!img) return '';
+  if (img.source === 'drive') return S.d.settings.image_url_template.replace('{id}', img.file_id).replace('{w}', w || 480);
+  return S.d.settings.site_url.replace(/\/$/, '') + img.url;
+}
+function index() {
+  const d = S.d;
+  S.img = {}; d.images.forEach(i => { S.img[i.image_id] = i; });
+  S.cat = {}; d.categories.forEach(c => { S.cat[c.code] = c; });
+  S.subs = {}; d.subcategories.forEach(s => { (S.subs[s.category_code] = S.subs[s.category_code] || []).push(s); });
+  Object.values(S.subs).forEach(l => l.sort((a, b) => Number(a.sort) - Number(b.sort)));
+  S.prj = {}; d.projects.forEach(p => { S.prj[p.project_no] = p; });
+  S.prjImgs = {}; d.projectImages.forEach(r => { (S.prjImgs[r.project_no] = S.prjImgs[r.project_no] || []).push(r); });
+  Object.values(S.prjImgs).forEach(l => l.sort((a, b) => Number(a.sort) - Number(b.sort)));
+  S.use = {};
+  const u = id => (S.use[id] = S.use[id] || { slots: [], pages: [], featured: [], gallery: [] });
+  d.slots.forEach(s => { if (s.image_id) { const x = u(s.image_id); x.slots.push(s.slot_key); if (!x.pages.includes(s.page)) x.pages.push(s.page); } });
+  d.projects.forEach(p => { if (p.featured_image_id) u(p.featured_image_id).featured.push(p.project_no); });
+  d.projectImages.forEach(r => u(r.image_id).gallery.push(r.project_no));
+  S.pages = []; const seen = {};
+  d.slots.forEach(s => { if (!seen[s.page]) { seen[s.page] = { page: s.page, url: s.page_url, slots: [] }; S.pages.push(seen[s.page]); } seen[s.page].slots.push(s); });
+  S.pend = new Set(d.pending.slots); S.pendPrj = new Set(d.pending.projects);
+  S.sel.forEach(id => { if (!S.img[id]) S.sel.delete(id); });
+}
+const catName = code => (S.cat[code] || {}).name || code;
+const used = id => { const x = S.use[id]; return x ? x.slots.length + x.featured.length + x.gallery.length : 0; };
+function nextIdFor(code) {
+  const c = S.d.counters.find(x => x.prefix === code);
+  let max = c ? Number(c.last_seq) || 0 : 0;
+  S.d.images.forEach(i => { if (i.prefix === code) max = Math.max(max, i.seq); });
+  return max + 1;
+}
+const fmtId = (code, n) => code + '-' + String(n).padStart(3, '0');
+function groupOf(page) {
+  if (/^Home/.test(page)) return 'Landing page';
+  if (/^Header|^Design journey/.test(page)) return 'Site-wide';
+  if (/^Service/.test(page)) return 'Services';
+  return 'Company & other pages';
+}
+function siteLink(pageUrl, extra) {
+  const base = S.d.settings.site_url.replace(/\/$/, '');
+  const [path, hash] = String(pageUrl || '/').split('#');
+  return base + path + (extra ? '?' + extra : '') + (hash ? '#' + hash : '');
+}
+function catOptions(cur, blank) { return (blank ? opt('', blank, cur) : '') + S.d.categories.map(c => opt(c.code, c.code + ' — ' + c.name, cur)).join(''); }
+function subOptions(code, cur, blank) { return (blank !== false ? opt('', blank || '— none —', cur) : '') + (S.subs[code] || []).map(s => opt(s.name, s.name, cur)).join(''); }
+function prjOptions(cur, blank) { return opt('', blank || '— none —', cur) + S.d.projects.map(p => opt(p.project_no, p.project_no + ' — ' + p.name, cur)).join(''); }
+
+/* =====================================================================
+   LOGIN / SHELL
+   ===================================================================== */
+const BRAND = '<div class="brand"><b>SUBHA</b><span><i></i>INFRA<i></i></span><small>Designed to inspire</small></div>';
+function showLogin(msg) {
+  $('#app').innerHTML = `<div class="login"><form class="login-card" id="login-form">
+    <div class="login-head">${BRAND}</div>
+    <div class="login-body">
+      <div><h1>Image &amp; Website CMS</h1><p>Sign in to manage every image on subhainfra.com.</p></div>
+      ${msg ? `<div class="alert">${I.warn}<div>${esc(msg)}</div></div>` : ''}
+      <label class="f"><span>Email</span><input class="in" name="email" type="email" autocomplete="username" required></label>
+      <label class="f"><span>Password</span><input class="in" name="password" type="password" autocomplete="current-password" required></label>
+      <button class="btn btn-primary" type="submit" style="padding:11px">Sign in</button>
+    </div></form></div>`;
+  $('#login-form').onsubmit = e => {
+    e.preventDefault();
+    const f = e.target, b = $('button', f);
+    b.disabled = true; b.innerHTML = '<span class="spin"></span> Signing in…';
+    google.script.run.withSuccessHandler(r => {
+      if (!r.ok) return showLogin(r.error);
+      S.token = r.token; S.user = r.user; store.set('cms_token', r.token);
+      boot();
+    }).withFailureHandler(err => showLogin(err.message)).login(f.email.value, f.password.value);
+  };
+  setTimeout(() => { const i = $('#login-form [name=email]'); if (i) i.focus(); }, 50);
+}
+function logout(expired) {
+  if (S.token && !expired) google.script.run.logout(S.token);
+  S.token = null; store.set('cms_token', null);
+  showLogin(expired ? 'Your session expired. Please sign in again.' : '');
+}
+async function boot() {
+  $('#app').innerHTML = '<div class="empty-state" style="padding-top:20vh"><span class="spin"></span><br><br>Loading the image library…</div>';
+  try {
+    S.d = await call('bootstrap');
+    S.user = S.d.user;
+    index();
+    renderShell();
+    go(S.view);
+  } catch (e) { if (S.token) showLogin(e.message); }
+}
+async function refresh() {
+  try { S.d = await call('bootstrap'); index(); renderNav(); renderTop(); renderView(); } catch (e) { fail(e); }
+}
+
+const NAV = [
+  ['Overview'], ['dashboard', 'Dashboard', 'dash'],
+  ['Website content'], ['landing', 'Landing Page', 'home'], ['services', 'Services Pages', 'svc'], ['placements', 'All Placements', 'place'], ['projects', 'Projects', 'prj'],
+  ['Image library'], ['library', 'Image Library', 'img'], ['categories', 'Categories', 'cat'],
+  ['Publishing'], ['publish', 'Publish & Preview', 'pub'], ['settings', 'Settings', 'set']
+];
+const TITLES = {
+  dashboard: ['Dashboard', 'Overview of the image library and the live website'],
+  library: ['Image Library', 'Every image, its permanent ID and where it is used'],
+  placements: ['Website Placements', 'Choose exactly which image appears in each spot on the website'],
+  projects: ['Projects', 'Project numbers, featured images and project galleries'],
+  categories: ['Categories & Subcategories', 'Numbering prefixes and classification'],
+  publish: ['Publish & Preview', 'Review unpublished changes and update the live website'],
+  settings: ['Settings', 'Website connection, image delivery and administrators']
+};
+function renderShell() {
+  $('#app').innerHTML = `<div class="shell">
+    <aside class="side">${BRAND}<nav class="nav" id="nav"></nav>
+      <div class="side-foot"><b>${esc(S.user.name)}</b>${esc(S.user.email)} · ${esc(S.user.role)}<br><a href="#" data-act="logout" style="color:var(--gold-2)">Sign out</a></div></aside>
+    <div class="main"><header class="top" id="top"></header><main class="view" id="view"></main></div></div>
+    <input type="file" id="file-replace" accept="image/jpeg,image/png,image/webp" hidden>
+    <input type="file" id="file-upload" accept="image/jpeg,image/png,image/webp" multiple hidden>`;
+  renderNav();
+}
+function navKey() { return S.view === 'placements' ? (S.page === '__home' ? 'landing' : S.page === '__services' ? 'services' : 'placements') : S.view; }
+function renderNav() {
+  const cur = navKey(), n = S.d.pending.count;
+  $('#nav').innerHTML = NAV.map(x => x.length === 1 ? `<div class="grp">${x[0]}</div>`
+    : `<button class="${cur === x[0] ? 'on' : ''}" data-act="nav" data-v="${x[0]}">${I[x[2]]}${x[1]}${x[0] === 'publish' && n ? `<span class="ct">${n}</span>` : ''}</button>`).join('');
+}
+function renderTop() {
+  const t = TITLES[S.view] || ['', ''];
+  let title = t[0];
+  if (S.view === 'placements' && S.page === '__home') title = 'Landing Page';
+  if (S.view === 'placements' && S.page === '__services') title = 'Services Pages';
+  const n = S.d.pending.count;
+  $('#top').innerHTML = `<h1>${esc(title)}<span class="sub">${esc(t[1])}</span></h1>
+    ${n ? `<button class="chip gold" data-act="nav" data-v="publish" style="cursor:pointer">${n} unpublished change${n > 1 ? 's' : ''}</button>` : '<span class="chip ok">Website is up to date</span>'}
+    <button class="btn" data-act="preview-site">${I.eye} Preview</button>
+    <button class="btn btn-gold" data-act="publish" ${n ? '' : 'disabled'}>${I.pub} Publish</button>`;
+}
+function go(view, opts) {
+  if (view === 'landing') { view = 'placements'; S.page = '__home'; }
+  else if (view === 'services') { view = 'placements'; S.page = '__services'; }
+  else if (view === 'placements' && !(opts && opts.page) && (S.page === '__home' || S.page === '__services')) S.page = null;
+  S.view = view; Object.assign(S, opts || {});
+  renderNav(); renderTop(); renderView();
+  window.scrollTo(0, 0);
+}
+function renderView() {
+  const v = $('#view'); if (!v) return;
+  v.innerHTML = (VIEWS[S.view] || VIEWS.dashboard)();
+  if (AFTER[S.view]) AFTER[S.view]();
+}
+
+/* =====================================================================
+   VIEWS
+   ===================================================================== */
+const VIEWS = {}, AFTER = {};
+
+/* ---------------- Dashboard ---------------- */
+VIEWS.dashboard = () => {
+  const imgs = S.d.images, act = imgs.filter(i => i.status === 'active').length;
+  const filled = S.d.slots.filter(s => s.image_id).length;
+  const ph = imgs.filter(i => /PLACEHOLDER/.test(i.notes));
+  const empty = S.d.slots.filter(s => !s.image_id);
+  const inactiveUsed = S.d.slots.filter(s => s.image_id && S.img[s.image_id] && S.img[s.image_id].status !== 'active');
+  const pubPrj = S.d.projects.filter(p => truthy(p.published)).length;
+  const byCat = S.d.categories.map(c => [c, imgs.filter(i => i.category_code === c.code).length]);
+  const max = Math.max(1, ...byCat.map(x => x[1]));
+  const recent = imgs.slice().sort((a, b) => String(b.upload_date).localeCompare(String(a.upload_date)) || b.seq - a.seq).slice(0, 8);
+  return `<div class="grid">
+    <div class="kpis">
+      <div class="kpi"><span>Images</span><b>${imgs.length}</b><small>${act} active · ${imgs.length - act} inactive/archived</small></div>
+      <div class="kpi"><span>Placements filled</span><b>${filled}<small style="display:inline;font-size:16px"> / ${S.d.slots.length}</small></b><small>${S.pages.length} pages &amp; menus</small></div>
+      <div class="kpi"><span>Projects</span><b>${S.d.projects.length}</b><small>${pubPrj} published · ${S.d.projects.filter(p => truthy(p.featured)).length} featured</small></div>
+      <div class="kpi accent"><span>Unpublished changes</span><b>${S.d.pending.count}</b><small>Live version v${esc(S.d.settings.published_version)} · ${fmtTime(S.d.settings.published_at)}</small></div>
+    </div>
+    ${ph.length || empty.length || inactiveUsed.length ? `<div class="panel"><div class="panel-h"><h2>Needs attention</h2></div><div class="panel-b grid">
+      ${ph.length ? `<div class="alert">${I.warn}<div><b>${ph.length} placeholder photos.</b> The interior gallery and design-journey images are copies of exterior project photos (for example INT-001 is the same file as an ARCH villa photo). Replace them with real photos — their IDs and placements stay the same.<div style="margin-top:8px"><button class="btn btn-sm" data-act="lib-filter" data-k="status" data-val="placeholder">Show placeholder photos</button></div></div></div>` : ''}
+      ${empty.length ? `<div class="alert info">${I.info}<div><b>${empty.length} empty placements</b> show a built-in placeholder: ${empty.map(s => `<span class="chip link" data-act="goto-slot" data-key="${esc(s.slot_key)}">${esc(s.slot_key)}</span>`).join(' ')}</div></div>` : ''}
+      ${inactiveUsed.length ? `<div class="alert">${I.warn}<div><b>${inactiveUsed.length} placements use an inactive image</b> and will show the built-in image instead: ${inactiveUsed.map(s => `<span class="chip link" data-act="goto-slot" data-key="${esc(s.slot_key)}">${esc(s.slot_key)}</span>`).join(' ')}</div></div>` : ''}
+    </div></div>` : ''}
+    <div class="grid cols-2">
+      <div class="panel"><div class="panel-h"><h2>Images by category</h2><button class="btn btn-sm" data-act="nav" data-v="categories">Manage</button></div><div class="panel-b bars">
+        ${byCat.map(([c, n]) => `<div class="bar-row"><a href="#" data-act="lib-filter" data-k="cat" data-val="${c.code}"><span class="id" style="font-size:10.5px">${esc(c.code)}</span> ${esc(c.name)}</a><div class="tr"><i style="width:${(n / max * 100).toFixed(1)}%"></i></div><b style="text-align:right">${n}</b></div>`).join('')}
+      </div></div>
+      <div class="panel"><div class="panel-h"><h2>Quick actions</h2></div><div class="panel-b grid">
+        <button class="btn btn-primary" data-act="upload">${I.up} Upload images</button>
+        <button class="btn" data-act="nav" data-v="landing">${I.home} Change landing-page images</button>
+        <button class="btn" data-act="nav" data-v="services">${I.svc} Change services images</button>
+        <button class="btn" data-act="nav" data-v="projects">${I.prj} Manage projects</button>
+        <a class="btn" href="${esc(siteLink('/', 'cms_labels=1'))}" target="_blank">${I.eye} Open website with image labels</a>
+      </div></div>
+    </div>
+    <div class="panel"><div class="panel-h"><h2>Recent uploads</h2><button class="btn btn-sm" data-act="lib-filter" data-k="sort" data-val="new">View all</button></div><div class="panel-b">
+      <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(160px,1fr))">${recent.map(i => `<div class="card"><div class="thumb"><img loading="lazy" src="${esc(src(i, 400))}" data-act="preview" data-id="${i.image_id}" alt=""><div class="tl"><span class="id">${i.image_id}</span></div></div><div class="card-b"><div class="nm small">${esc(i.display_name)}</div><div class="meta">${fmtDate(i.upload_date)}</div></div></div>`).join('')}</div>
+    </div></div>
+  </div>`;
+};
+
+/* ---------------- Image library ---------------- */
+function filteredImages() {
+  const f = S.f, q = f.q.trim().toLowerCase();
+  const prjSet = f.prj ? new Set((S.prjImgs[f.prj] || []).map(r => r.image_id).concat(S.prj[f.prj] && S.prj[f.prj].featured_image_id ? [S.prj[f.prj].featured_image_id] : [])) : null;
+  let list = S.d.images.filter(i => {
+    if (S.only && !S.only.has(i.image_id)) return false;
+    if (f.cat && i.category_code !== f.cat) return false;
+    if (f.sub && i.subcategory !== f.sub) return false;
+    if (prjSet && !(prjSet.has(i.image_id) || i.project_no === f.prj)) return false;
+    if (f.status === 'placeholder') { if (!/PLACEHOLDER/.test(i.notes)) return false; }
+    else if (f.status === 'unused') { if (used(i.image_id)) return false; }
+    else if (f.status === 'all') { /* everything */ }
+    else if (f.status) { if (i.status !== f.status) return false; }
+    else if (i.status === 'archived') return false;
+    if (f.page && !((S.use[i.image_id] || {}).pages || []).includes(f.page)) return false;
+    if (q) {
+      const hay = (i.image_id + ' ' + i.display_name + ' ' + i.original_filename + ' ' + i.subcategory + ' ' + ((S.use[i.image_id] || {}).slots || []).join(' ')).toLowerCase();
+      if (!q.split(/\s+/).every(w => hay.includes(w))) return false;
+    }
+    return true;
+  });
+  const catSort = c => Number((S.cat[c] || {}).sort) || 99;
+  if (f.sort === 'new') list.sort((a, b) => String(b.upload_date).localeCompare(String(a.upload_date)) || b.seq - a.seq);
+  else if (f.sort === 'id') list.sort((a, b) => a.prefix.localeCompare(b.prefix) || a.seq - b.seq);
+  else if (f.sort === 'name') list.sort((a, b) => String(a.display_name).localeCompare(String(b.display_name)));
+  else list.sort((a, b) => catSort(a.category_code) - catSort(b.category_code) || a.display_order - b.display_order || a.seq - b.seq);
+  return list;
+}
+function imageCard(i) {
+  const u = S.use[i.image_id] || { slots: [], featured: [], gallery: [] };
+  const on = S.sel.has(i.image_id);
+  const chips = u.slots.slice(0, 4).map(k => `<span class="chip link" data-act="goto-slot" data-key="${esc(k)}" title="Open this placement">${esc(k)}</span>`).join('')
+    + (u.slots.length > 4 ? `<span class="chip">+${u.slots.length - 4} more</span>` : '')
+    + u.featured.map(p => `<span class="chip gold" title="Featured image of ${esc(p)}">${esc(p)} ★</span>`).join('')
+    + [...new Set(u.gallery)].map(p => `<span class="chip gold" title="In gallery of ${esc(p)}">${esc(p)}</span>`).join('');
+  const stChip = i.status === 'active' ? '' : `<span class="chip ${i.status === 'archived' ? '' : 'warn'}">${esc(i.status)}</span>`;
+  return `<div class="card ${on ? 'sel' : ''} ${i.status !== 'active' ? 'off' : ''}" data-id="${i.image_id}" ${S.reorder ? 'draggable="true"' : ''}>
+    <div class="thumb"><img loading="lazy" src="${esc(src(i, 480))}" alt="" ${S.reorder ? '' : `data-act="preview" data-id="${i.image_id}"`}>
+      <div class="tl"><span class="id">${i.image_id}</span></div>
+      <div class="tr"><label class="sel-box" title="Select"><input type="checkbox" data-chg="sel" data-id="${i.image_id}" ${on ? 'checked' : ''}></label></div>
+      <div class="bl">${stChip}${/PLACEHOLDER/.test(i.notes) ? '<span class="chip warn" title="' + esc(i.notes) + '">placeholder copy</span>' : ''}${i.source === 'site' ? '' : ''}</div>
+    </div>
+    <div class="card-b">
+      <div class="nm" title="${esc(i.display_name)}">${esc(i.display_name)}</div>
+      <div class="meta">${esc(catName(i.category_code))} › ${esc(i.subcategory || '—')}</div>
+      <div class="meta">${fmtDate(i.upload_date)}${i.width ? ' · ' + i.width + '×' + i.height : ''}</div>
+      <div class="uses">${chips || '<span class="chip">Not on website</span>'}</div>
+    </div>
+    <div class="card-f">
+      <button class="icon-btn" title="Edit details" data-act="edit" data-id="${i.image_id}">${I.edit}</button>
+      <button class="icon-btn" title="Replace file (keeps ${i.image_id})" data-act="replace" data-id="${i.image_id}">${I.repl}</button>
+      <button class="icon-btn" title="Place on website" data-act="place-image" data-id="${i.image_id}">${I.place}</button>
+      <button class="icon-btn" title="Delete" data-act="delete" data-id="${i.image_id}">${I.trash}</button>
+      <label class="switch sp" title="${i.status === 'active' ? 'Active — click to deactivate' : 'Inactive — click to activate'}"><input type="checkbox" data-chg="status" data-id="${i.image_id}" ${i.status === 'active' ? 'checked' : ''}><i></i></label>
+    </div></div>`;
+}
+VIEWS.library = () => {
+  const f = S.f, list = filteredImages(), n = S.sel.size;
+  const pages = S.pages.map(p => opt(p.page, p.page, f.page)).join('');
+  return `
+  <div class="toolbar">
+    <div class="search">${I.search}<input class="in" data-inp="q" value="${esc(f.q)}" placeholder="Search image ID (PEB-001), name, file or placement (HOME-HERO)…"></div>
+    <select class="in" data-chg="f" data-k="cat">${catOptions(f.cat, 'All categories')}</select>
+    <select class="in" data-chg="f" data-k="sub" ${f.cat ? '' : 'disabled'}>${f.cat ? subOptions(f.cat, f.sub, 'All subcategories') : opt('', 'All subcategories', '')}</select>
+    <select class="in" data-chg="f" data-k="prj">${prjOptions(f.prj, 'All projects')}</select>
+    <select class="in" data-chg="f" data-k="page">${opt('', 'All website sections', f.page)}${pages}</select>
+    <select class="in" data-chg="f" data-k="status">${opt('', 'Active + inactive', f.status)}${opt('active', 'Active only', f.status)}${opt('inactive', 'Inactive only', f.status)}${opt('archived', 'Archived', f.status)}${opt('placeholder', '⚠ Placeholder copies', f.status)}${opt('unused', 'Not used anywhere', f.status)}${opt('all', 'Everything', f.status)}</select>
+    <select class="in" data-chg="f" data-k="sort">${opt('order', 'Sort: display order', f.sort)}${opt('new', 'Sort: newest first', f.sort)}${opt('id', 'Sort: image ID', f.sort)}${opt('name', 'Sort: name', f.sort)}</select>
+  </div>
+  <div class="toolbar">
+    <b>${list.length}</b><span class="muted">image${list.length === 1 ? '' : 's'}${S.only ? ' (just uploaded)' : ''}</span>
+    ${S.only ? '<button class="btn btn-sm" data-act="clear-only">Show all images</button>' : ''}
+    <label class="chk"><input type="checkbox" data-chg="sel-all" ${list.length && list.every(i => S.sel.has(i.image_id)) ? 'checked' : ''}> Select all shown</label>
+    <span style="margin-left:auto"></span>
+    <button class="btn ${S.reorder ? 'btn-gold' : ''}" data-act="reorder">${I.grip} ${S.reorder ? 'Done reordering' : 'Reorder'}</button>
+    <button class="btn btn-primary" data-act="upload">${I.up} Upload images</button>
+  </div>
+  ${S.reorder ? `<div class="alert info" style="margin-bottom:14px">${I.info}<div>Drag cards to change their display order, then press <b>Save order</b>. Tip: filter to one category first. <button class="btn btn-sm btn-primary" data-act="save-order" style="margin-left:8px">Save order</button></div></div>` : ''}
+  ${n ? `<div class="bulk"><b>${n} selected</b>
+      <select class="in" id="b-cat">${catOptions('', 'Category…')}</select>
+      <select class="in" id="b-sub"><option value="">Subcategory…</option></select>
+      <button class="btn btn-gold" data-act="bulk-cat">Apply</button><span class="sep"></span>
+      <button class="btn" data-act="bulk-status" data-val="active">Activate</button>
+      <button class="btn" data-act="bulk-status" data-val="inactive">Deactivate</button>
+      <button class="btn" data-act="bulk-status" data-val="archived">Archive</button><span class="sep"></span>
+      <select class="in" id="b-prj">${prjOptions('', 'Add to project…')}</select>
+      <button class="btn" data-act="bulk-prj">Add</button><span class="sep"></span>
+      <button class="btn" data-act="place-image" data-id="${esc([...S.sel][0])}">${I.place} Place first on website</button>
+      <button class="btn" data-act="download">${I.dl} Download</button>
+      <button class="btn btn-danger" data-act="bulk-delete">${I.trash} Delete</button>
+      <button class="btn btn-ghost" data-act="sel-none" style="color:#fff">Clear</button></div>` : ''}
+  ${list.length ? `<div class="cards ${S.reorder ? 'reorder' : ''}" id="cards">${list.slice(0, S.reorder ? list.length : S.limit).map(imageCard).join('')}</div>
+    ${!S.reorder && list.length > S.limit ? `<div style="text-align:center;margin-top:18px"><button class="btn" data-act="more">Show more (${list.length - S.limit} remaining)</button></div>` : ''}`
+    : `<div class="panel empty-state"><b>No images match these filters</b>Clear the search or upload new images.<br><br><button class="btn btn-primary" data-act="upload">${I.up} Upload images</button></div>`}`;
+};
+AFTER.library = () => {
+  const bc = $('#b-cat'); if (bc) bc.onchange = () => { $('#b-sub').innerHTML = subOptions(bc.value, '', 'Subcategory…'); };
+  if (S.reorder) {
+    let dragId = null;
+    $$('#cards .card').forEach(c => {
+      c.addEventListener('dragstart', e => { dragId = c.dataset.id; e.dataTransfer.setData('text/plain', 'ORD:' + dragId); c.style.opacity = '.4'; });
+      c.addEventListener('dragend', () => { c.style.opacity = ''; $$('#cards .drag-over').forEach(x => x.classList.remove('drag-over')); });
+      c.addEventListener('dragover', e => { if (dragId) { e.preventDefault(); c.classList.add('drag-over'); } });
+      c.addEventListener('dragleave', () => c.classList.remove('drag-over'));
+      c.addEventListener('drop', e => {
+        e.preventDefault(); c.classList.remove('drag-over');
+        const from = $(`#cards .card[data-id="${dragId}"]`); if (!from || from === c) return;
+        const r = c.getBoundingClientRect(); const after = e.clientX > r.left + r.width / 2;
+        c.parentNode.insertBefore(from, after ? c.nextSibling : c); dragId = null;
+      });
+    });
+  }
+};
+
+/* ---------------- Placements ---------------- */
+function slotCard(s) {
+  const img = s.image_id ? S.img[s.image_id] : null;
+  const pend = S.pend.has(s.slot_key);
+  const low = img && img.width && img.width < s.recommended_w * 0.6;
+  return `<div class="slot ${pend ? 'pending' : ''}" data-drop-slot="${esc(s.slot_key)}" id="slot-${esc(s.slot_key)}">
+    <div class="thumb" data-act="pick-slot" data-key="${esc(s.slot_key)}" title="Click to change">
+      ${img ? `<img loading="lazy" src="${esc(src(img, 640))}" alt="">` : `<div class="empty"><div>Empty — the website shows its built-in placeholder<br><b style="color:var(--navy)">Click to choose an image</b></div></div>`}
+      <div class="tl">${img ? `<span class="id">${img.image_id}</span>` : (s.image_id ? `<span class="id ghost">${esc(s.image_id)} deleted</span>` : '<span class="id ghost">no image</span>')}</div>
+      <div class="bl">${pend ? '<span class="chip gold">Unpublished change</span>' : ''}${img && img.status !== 'active' ? '<span class="chip bad">Image inactive — not shown</span>' : ''}${low ? '<span class="chip warn">Low resolution</span>' : ''}</div>
+    </div>
+    <div class="card-b">
+      <div class="key">${esc(s.slot_key)}</div>
+      <div class="lbl">${esc(s.label)}</div>
+      <div class="meta">${img ? esc(img.display_name) : '—'}</div>
+      <div class="meta">Best size ${s.recommended_w}×${s.recommended_h}px${s.updated_by && s.updated_by !== 'setup' ? ' · changed by ' + esc(s.updated_by.split('@')[0]) + ' ' + fmtDate(s.updated_at) : ''}</div>
+    </div>
+    <div class="card-f">
+      <button class="btn btn-sm" data-act="pick-slot" data-key="${esc(s.slot_key)}">Change</button>
+      ${img ? `<button class="btn btn-sm btn-ghost" data-act="edit" data-id="${img.image_id}">Edit image</button>` : ''}
+      <button class="icon-btn" title="Remove image (website shows its built-in image)" data-act="clear-slot" data-key="${esc(s.slot_key)}" ${s.image_id ? '' : 'disabled'}>${I.x}</button>
+      <a class="icon-btn sp" title="Show this spot on the live website" href="${esc(siteLink(s.page_url, 'cms_highlight=' + encodeURIComponent(s.slot_key) + '&cms_labels=1'))}" target="_blank">${I.ext}</a>
+    </div></div>`;
+}
+function placementPages() {
+  if (S.page === '__home') return S.pages.filter(p => groupOf(p.page) === 'Landing page');
+  if (S.page === '__services') return S.pages.filter(p => groupOf(p.page) === 'Services');
+  if (S.page) return S.pages.filter(p => p.page === S.page);
+  return S.pages;
+}
+VIEWS.placements = () => {
+  const groups = {};
+  S.pages.forEach(p => { (groups[groupOf(p.page)] = groups[groupOf(p.page)] || []).push(p); });
+  const shown = placementPages();
+  const side = Object.keys(groups).map(g => `<div class="grp">${esc(g)}</div>` + groups[g].map(p => {
+    const pend = p.slots.some(s => S.pend.has(s.slot_key));
+    return `<button class="${S.page === p.page ? 'on' : ''}" data-act="page" data-page="${esc(p.page)}">${pend ? '<span class="dot" title="Unpublished changes"></span>' : ''}${esc(p.page)}<span class="n">${p.slots.length}</span></button>`;
+  }).join('')).join('');
+  const body = shown.map(p => {
+    const secs = []; const by = {};
+    p.slots.forEach(s => { if (!by[s.section]) { by[s.section] = []; secs.push(s.section); } by[s.section].push(s); });
+    return `<div class="panel" style="margin-bottom:18px"><div class="panel-h"><h2>${esc(p.page)}</h2><code class="muted">${esc(p.url)}</code>
+        <a class="btn btn-sm" href="${esc(siteLink(p.url))}" target="_blank">${I.ext} Open page</a>
+        <a class="btn btn-sm" href="${esc(siteLink(p.url, 'cms_labels=1'))}" target="_blank" title="Every image on the page shows its placement key and image ID">${I.eye} Page with labels</a></div>
+      <div class="panel-b">${secs.map(sec => `<div class="sec-t"><h3>${esc(sec)}</h3><span>${by[sec].length} placement${by[sec].length > 1 ? 's' : ''}</span></div><div class="slots">${by[sec].map(slotCard).join('')}</div>`).join('')}</div></div>`;
+  }).join('');
+  return `<div class="place ${S.tray ? 'tray-on' : ''}">
+    <div class="panel pages"><button class="${!S.page ? 'on' : ''}" data-act="page" data-page="">All pages<span class="n">${S.d.slots.length}</span></button>${side}</div>
+    <div>
+      <div class="toolbar"><div class="alert info" style="flex:1">${I.info}<div>Each card is one fixed spot on the website. Its <b>placement key</b> (e.g. <span class="key">HOME-HERO-1</span>) never changes. Click a card to choose a different image${S.tray ? ', or drag an image from the tray onto it' : ''}. Changes go live when you press <b>Publish</b>.</div></div>
+      <button class="btn ${S.tray ? 'btn-gold' : ''}" data-act="tray">${I.img} ${S.tray ? 'Hide' : 'Show'} image tray</button></div>
+      ${body}
+    </div>
+    ${S.tray ? `<div class="panel tray"><div class="panel-h" style="display:grid;gap:8px"><h2>Image tray</h2><div class="search" style="position:relative"><input class="in" id="tray-q" placeholder="Search ID or name…"></div><select class="in" id="tray-cat">${catOptions('', 'All categories')}</select><span class="small muted">Drag onto a placement</span></div><div class="panel-b" id="tray-list"></div></div>` : ''}
+  </div>`;
+};
+AFTER.placements = () => {
+  if (S.tray) {
+    const draw = () => {
+      const q = ($('#tray-q').value || '').toLowerCase(), c = $('#tray-cat').value;
+      const l = S.d.images.filter(i => i.status === 'active' && (!c || i.category_code === c) && (!q || (i.image_id + ' ' + i.display_name).toLowerCase().includes(q))).slice(0, 150);
+      $('#tray-list').innerHTML = l.map(i => `<div class="tray-i" draggable="true" data-drag-img="${i.image_id}" title="${esc(i.display_name)}"><img loading="lazy" src="${esc(src(i, 320))}" alt=""><div>${i.image_id}</div></div>`).join('') || '<span class="muted small">No images</span>';
+    };
+    $('#tray-q').oninput = draw; $('#tray-cat').onchange = draw; draw();
+  }
+  if (S.focusSlot) { const el = document.getElementById('slot-' + S.focusSlot); S.focusSlot = null; if (el) { el.scrollIntoView({ block: 'center' }); el.classList.add('drop'); setTimeout(() => el.classList.remove('drop'), 1800); } }
+};
+
+/* ---------------- Projects ---------------- */
+VIEWS.projects = () => {
+  const q = S.prjF.q.toLowerCase(), c = S.prjF.cat;
+  const cats = [...new Set(S.d.projects.map(p => p.category).filter(Boolean))];
+  const list = S.d.projects.filter(p => (!c || p.category === c) && (!q || (p.project_no + ' ' + p.name + ' ' + p.slug + ' ' + p.location).toLowerCase().includes(q)));
+  return `<div class="toolbar">
+      <div class="search">${I.search}<input class="in" id="prj-q" value="${esc(S.prjF.q)}" placeholder="Search project number, name or location…"></div>
+      <select class="in" id="prj-cat">${opt('', 'All categories', c)}${cats.map(x => opt(x, x, c)).join('')}</select>
+      <button class="btn btn-primary" data-act="prj-new">${I.plus} New project</button></div>
+    <div class="tbl-wrap"><table class="tbl"><thead><tr><th class="tn"></th><th>Project</th><th>Category</th><th>Status</th><th>Year</th><th>Photos</th><th>Featured</th><th>Published</th><th></th></tr></thead><tbody>
+    ${list.map(p => {
+      const img = S.img[p.featured_image_id]; const ph = (S.prjImgs[p.project_no] || []).length; const pend = S.pendPrj.has(p.slug);
+      return `<tr><td class="tn">${img ? `<img loading="lazy" src="${esc(src(img, 200))}" alt="">` : '<div class="ph"></div>'}</td>
+        <td><span class="id">${esc(p.project_no)}</span> <b style="color:var(--navy)">${esc(p.name)}</b>${pend ? ' <span class="chip gold">unpublished change</span>' : ''}<div class="small muted">${p.slug ? '/projects/' + esc(p.slug) + '/' : '<i>no website page yet</i>'}${p.location ? ' · ' + esc(p.location) : ''}${img ? ' · featured ' + img.image_id : ''}</div></td>
+        <td>${esc(p.category)}</td><td class="small">${esc(p.status)}</td><td>${esc(p.year || '—')}</td><td>${ph || '<span class="muted">—</span>'}</td>
+        <td><label class="switch"><input type="checkbox" data-chg="prj-flag" data-no="${esc(p.project_no)}" data-k="featured" ${truthy(p.featured) ? 'checked' : ''}><i></i></label></td>
+        <td><label class="switch"><input type="checkbox" data-chg="prj-flag" data-no="${esc(p.project_no)}" data-k="published" ${truthy(p.published) ? 'checked' : ''}><i></i></label></td>
+        <td style="white-space:nowrap"><button class="btn btn-sm" data-act="prj-edit" data-no="${esc(p.project_no)}">Edit</button>${p.slug ? ` <a class="icon-btn" href="${esc(siteLink('/projects/' + p.slug + '/'))}" target="_blank" title="View page">${I.ext}</a>` : ''}</td></tr>`;
+    }).join('') || '<tr><td colspan="9" class="empty-state">No projects match.</td></tr>'}
+    </tbody></table></div>
+    <p class="small muted" style="margin-top:12px">Published off = the project card is hidden from the portfolio grid. Featured = marked as a featured project. The project's featured image fills its portfolio card, page header and previous/next links; its photos replace the page gallery.</p>`;
+};
+AFTER.projects = () => {
+  $('#prj-q').oninput = e => { S.prjF.q = e.target.value; const pos = e.target.selectionStart; renderView(); const i = $('#prj-q'); i.focus(); i.setSelectionRange(pos, pos); };
+  $('#prj-cat').onchange = e => { S.prjF.cat = e.target.value; renderView(); };
+};
+
+/* ---------------- Categories ---------------- */
+VIEWS.categories = () => {
+  const count = {}, subCount = {};
+  S.d.images.forEach(i => { count[i.category_code] = (count[i.category_code] || 0) + 1; const k = i.category_code + '|' + i.subcategory; subCount[k] = (subCount[k] || 0) + 1; });
+  return `<div class="alert info" style="margin-bottom:16px">${I.info}<div>The category code is the image-number prefix. New uploads in <b>PEB</b> get the next free number (PEB-005, PEB-006…). Numbers are permanent: they are never reset or reused, even after an image is deleted or moved to another category.</div></div>
+  <div class="panel" style="margin-bottom:16px"><div class="panel-h"><h2>New category</h2></div><div class="panel-b"><form id="cat-new" class="toolbar" style="margin:0">
+    <input class="in" name="code" placeholder="Code e.g. LAND" maxlength="10" style="min-width:120px;text-transform:uppercase" required>
+    <input class="in" name="name" placeholder="Name e.g. Landscape" required style="flex:1">
+    <input class="in" name="group" placeholder="Group e.g. Architectural & Interior Design" style="flex:1">
+    <button class="btn btn-primary">${I.plus} Add category</button></form></div></div>
+  <div class="grid cols-2">${S.d.categories.map(c => `<div class="panel cat-card"><div class="panel-h"><span class="id gold">${esc(c.code)}</span><h2>${esc(c.name)}</h2><span class="chip">${count[c.code] || 0} images</span><span class="chip" title="Next image number">next ${fmtId(c.code, nextIdFor(c.code))}</span><button class="icon-btn" data-act="cat-edit" data-code="${esc(c.code)}" title="Rename">${I.edit}</button></div>
+    <div class="panel-b grid" style="gap:10px"><div class="small muted">${esc(c.group || '')}${c.service_url ? ' · ' + esc(c.service_url) : ''}</div>
+      <div class="subs">${(S.subs[c.code] || []).map(s => `<span class="sub-chip">${esc(s.name)} <b>${subCount[c.code + '|' + s.name] || 0}</b><button title="Rename" data-act="sub-edit" data-id="${esc(s.id)}" data-code="${esc(c.code)}" data-name="${esc(s.name)}">${I.edit}</button><button title="Delete" data-act="sub-del" data-id="${esc(s.id)}">${I.x}</button></span>`).join('') || '<span class="muted small">No subcategories</span>'}</div>
+      <form class="toolbar sub-new" data-code="${esc(c.code)}" style="margin:0"><input class="in" name="name" placeholder="Add subcategory…" style="flex:1" required><button class="btn btn-sm">${I.plus} Add</button></form>
+    </div></div>`).join('')}</div>`;
+};
+AFTER.categories = () => {
+  $('#cat-new').onsubmit = e => {
+    e.preventDefault(); const f = e.target;
+    call('saveCategory', { isNew: true, code: f.code.value, name: f.name.value, group: f.group.value }).then(() => { toast('Category added', 'ok'); refresh(); }).catch(fail);
+  };
+  $$('.sub-new').forEach(f => f.onsubmit = e => {
+    e.preventDefault();
+    call('saveSubcategory', { category_code: f.dataset.code, name: f.name.value }).then(() => { toast('Subcategory added', 'ok'); refresh(); }).catch(fail);
+  });
+};
+
+/* ---------------- Publish ---------------- */
+VIEWS.publish = () => {
+  const p = S.d.pending, st = S.d.settings;
+  const slotRows = p.slots.map(k => {
+    const s = S.d.slots.find(x => x.slot_key === k); const img = s && s.image_id ? S.img[s.image_id] : null;
+    return `<tr><td class="tn">${img ? `<img src="${esc(src(img, 200))}" alt="">` : '<div class="ph"></div>'}</td><td><span class="key">${esc(k)}</span><div class="small muted">${s ? esc(s.page + ' · ' + s.section + ' · ' + s.label) : ''}</div></td><td>${img ? `<span class="id">${img.image_id}</span> ${esc(img.display_name)}${img.status !== 'active' ? ' <span class="chip bad">inactive</span>' : ''}` : '<span class="muted">Built-in image</span>'}</td><td><button class="btn btn-sm" data-act="goto-slot" data-key="${esc(k)}">Open</button></td></tr>`;
+  }).join('');
+  const prjRows = p.projects.map(slug => { const pr = S.d.projects.find(x => x.slug === slug); return `<tr><td class="tn"></td><td><span class="id">${esc(pr ? pr.project_no : slug)}</span> ${esc(pr ? pr.name : slug)}</td><td class="small muted">Featured image, photos, location or visibility changed</td><td>${pr ? `<button class="btn btn-sm" data-act="prj-edit" data-no="${esc(pr.project_no)}">Open</button>` : ''}</td></tr>`; }).join('');
+  return `<div class="grid">
+    <div class="kpis">
+      <div class="kpi accent"><span>Unpublished changes</span><b>${p.count}</b><small>${p.slots.length} placements · ${p.projects.length} projects</small></div>
+      <div class="kpi"><span>Live version</span><b>v${esc(st.published_version)}</b><small>${fmtTime(st.published_at)} by ${esc(String(st.published_by || '—').split('@')[0])}</small></div>
+    </div>
+    <div class="panel"><div class="panel-h"><h2>Changes waiting to go live</h2>
+      <button class="btn" data-act="preview-site">${I.eye} Preview on website</button>
+      <button class="btn btn-gold" data-act="publish" ${p.count ? '' : 'disabled'}>${I.pub} Publish ${p.count || ''} change${p.count === 1 ? '' : 's'}</button></div>
+      ${p.count ? `<div class="tbl-wrap" style="border:0;border-radius:0"><table class="tbl"><tbody>${slotRows}${prjRows}</tbody></table></div>` : '<div class="empty-state"><b>Everything is published</b>The live website shows the current choices.</div>'}
+      ${p.settingsChanged ? `<div class="panel-b"><div class="alert">${I.warn}<div>The image delivery setting changed. Publish to apply it.</div></div></div>` : ''}
+    </div>
+    <div class="panel"><div class="panel-h"><h2>How publishing works</h2></div><div class="panel-b small" style="display:grid;gap:8px">
+      <div><b>Save as draft:</b> every change you make (placements, image details, projects) is saved immediately as a draft. The live website does not change.</div>
+      <div><b>Preview:</b> opens the real website showing your drafts, only in your browser. A bar at the bottom of the page shows that you are in preview mode.</div>
+      <div><b>Publish:</b> the website loads the new images straight away for new visitors. Returning visitors see them within ${esc(S.d.settings.cache_minutes || '10')} minutes (browser cache). No code edits or rebuild needed.</div>
+      <div><b>Unpublish:</b> switch a project's <i>Published</i> toggle off, or press <b>✕</b> on a placement to return it to its built-in image, then Publish.</div>
+    </div></div>
+  </div>`;
+};
+
+/* ---------------- Settings ---------------- */
+VIEWS.settings = () => {
+  const st = S.d.settings, owner = S.user.role === 'owner';
+  return `<div class="grid">
+    <div class="panel"><div class="panel-h"><h2>Connect the website</h2></div><div class="panel-b grid">
+      <div class="small">Paste this line into <code>js/site-config.js</code> on the website (once). Every page then loads the published images automatically.</div>
+      <div class="code-box">cmsApi: <b>'${esc(S.d.apiUrl)}'</b>,</div>
+      <div><button class="btn btn-sm" data-act="copy" data-text="${esc("cmsApi: '" + S.d.apiUrl + "',")}">Copy line</button>
+        <a class="btn btn-sm" href="${esc(S.d.apiUrl)}?api=site" target="_blank">${I.ext} Test API</a>
+        <a class="btn btn-sm" href="${esc(siteLink('/', 'cms_labels=1'))}" target="_blank">${I.eye} Website with labels</a></div>
+    </div></div>
+    <div class="panel"><div class="panel-h"><h2>Website &amp; image delivery</h2></div><div class="panel-b"><form id="set-form" class="grid cols-2">
+      <label class="f"><span>Website address</span><input class="in" name="site_url" value="${esc(st.site_url)}" ${owner ? '' : 'disabled'}><small class="muted">Used for previews and for thumbnails of the original website images.</small></label>
+      <label class="f"><span>Image URL template</span><input class="in mono" name="image_url_template" value="${esc(st.image_url_template)}" ${owner ? '' : 'disabled'}><small class="muted">{id} = Drive file ID, {w} = width. Alternative: https://drive.google.com/thumbnail?id={id}&amp;sz=w{w}</small></label>
+      <label class="f"><span>Largest side when uploading (px)</span><input class="in" name="upload_max_px" type="number" min="800" max="6000" step="100" value="${esc(st.upload_max_px)}" ${owner ? '' : 'disabled'}><small class="muted">2400 keeps full-screen hero images sharp on large displays.</small></label>
+      <label class="f"><span>WebP quality (0.5 – 1)</span><input class="in" name="webp_quality" type="number" min="0.5" max="1" step="0.01" value="${esc(st.webp_quality)}" ${owner ? '' : 'disabled'}><small class="muted">0.86 is visually lossless for photographs at about a third of the JPEG size.</small></label>
+      ${owner ? '<div><button class="btn btn-primary">Save settings</button></div>' : '<div class="small muted">Only an owner can change these.</div>'}
+    </form></div></div>
+    ${owner ? `<div class="panel"><div class="panel-h"><h2>Administrators</h2><button class="btn btn-sm" data-act="admins-load">Load list</button></div><div class="panel-b grid" id="admins"><span class="muted small">Press “Load list”.</span></div>
+      <div class="panel-b" style="border-top:1px solid var(--line)"><form id="admin-form" class="grid cols-3">
+        <label class="f"><span>Email</span><input class="in" name="email" type="email" required></label>
+        <label class="f"><span>Name</span><input class="in" name="name"></label>
+        <label class="f"><span>Role</span><select class="in" name="role">${opt('editor', 'Editor — manage images', 'editor')}${opt('owner', 'Owner — also settings & admins', '')}</select></label>
+        <label class="f"><span>Password (min 10 characters)</span><input class="in" name="password" type="password" minlength="10" autocomplete="new-password"></label>
+        <div style="align-self:end"><button class="btn btn-primary">Add / update administrator</button></div>
+      </form></div></div>` : ''}
+    <div class="panel"><div class="panel-h"><h2>Change my password</h2></div><div class="panel-b"><form id="pwd-form" class="grid cols-3">
+      <label class="f"><span>Current password</span><input class="in" name="current" type="password" required autocomplete="current-password"></label>
+      <label class="f"><span>New password (min 10)</span><input class="in" name="next" type="password" minlength="10" required autocomplete="new-password"></label>
+      <div style="align-self:end"><button class="btn btn-primary">Change password</button></div></form></div></div>
+    <div class="panel"><div class="panel-h"><h2>Activity log</h2><button class="btn btn-sm" data-act="audit-load">Load</button></div><div id="audit" class="panel-b"><span class="muted small">Every upload, change and publish is recorded.</span></div></div>
+    <p class="small muted">SUBHA INFRA CMS v${esc(S.d.version)} · Database: Google Sheets · Storage: Google Drive</p>
+  </div>`;
+};
+AFTER.settings = () => {
+  const sf = $('#set-form'); if (sf) sf.onsubmit = e => { e.preventDefault(); const f = e.target; call('saveSettings', { site_url: f.site_url.value, image_url_template: f.image_url_template.value, upload_max_px: f.upload_max_px.value, webp_quality: f.webp_quality.value }).then(() => { toast('Settings saved', 'ok'); refresh(); }).catch(fail); };
+  const af = $('#admin-form'); if (af) af.onsubmit = e => { e.preventDefault(); const f = e.target; call('saveAdmin', { email: f.email.value, name: f.name.value, role: f.role.value, password: f.password.value }).then(() => { toast('Administrator saved', 'ok'); f.reset(); ACT['admins-load'](); }).catch(fail); };
+  $('#pwd-form').onsubmit = e => { e.preventDefault(); const f = e.target; call('changePassword', { current: f.current.value, next: f.next.value }).then(() => { toast('Password changed', 'ok'); f.reset(); }).catch(fail); };
+};
+
+/* =====================================================================
+   DIALOGS
+   ===================================================================== */
+/* ---------------- Upload ---------------- */
+function openUpload(fileList) {
+  const st = S.d.settings;
+  const U = { files: [], cat: S.f.cat || '', sub: S.f.sub || '', prj: '', gallery: true, role: 'gallery', status: 'active', convert: true, running: false, done: [] };
+  const m = modal(`<div class="modal-h"><h2>Upload images</h2><button class="icon-btn" data-close>${I.x}</button></div>
+    <div class="modal-b">
+      <div class="drop-zone" id="u-drop"><b>Drop photos here</b> or click to choose · JPG, PNG or WebP · many at once</div>
+      <div class="up-list" id="u-list"></div>
+      <div class="grid cols-2">
+        <label class="f"><span>Main category <em>*</em></span><select class="in" id="u-cat">${catOptions(U.cat, '— choose —')}</select></label>
+        <label class="f"><span>Subcategory</span><select class="in" id="u-sub"></select></label>
+        <label class="f"><span>Project (optional)</span><select class="in" id="u-prj">${prjOptions('', '— none —')}</select></label>
+        <label class="f"><span>Status</span><select class="in" id="u-status">${opt('active', 'Active', 'active')}${opt('inactive', 'Inactive (hidden from website)', '')}</select></label>
+      </div>
+      <div id="u-prj-opts" hidden class="toolbar" style="margin:0"><label class="chk"><input type="checkbox" id="u-gal" checked> Add to the project's photo gallery as</label><select class="in" id="u-role" style="min-width:120px">${opt('gallery', 'Gallery photo', 'gallery')}${opt('before', 'Before', '')}${opt('after', 'After', '')}</select></div>
+      <label class="chk"><input type="checkbox" id="u-conv" checked> Optimise: convert to WebP and resize to max ${esc(st.upload_max_px)}px (recommended — about 70% smaller, same visual quality)</label>
+      <div class="alert info" id="u-ids">${I.info}<div>Choose a category to see the image numbers these photos will get.</div></div>
+    </div>
+    <div class="modal-f"><span class="left small muted" id="u-sum"></span><button class="btn" data-close>Cancel</button><button class="btn btn-primary" id="u-go" disabled>${I.up} Upload</button></div>`, 'mid');
+  const el = m.el, input = $('#file-upload');
+  const drawSub = () => { $('#u-sub').innerHTML = U.cat ? subOptions(U.cat, U.sub, '— none —') : '<option value="">Choose a category first</option>'; };
+  const drawIds = () => {
+    const n = U.files.filter(f => !f.id).length;
+    $('#u-ids').innerHTML = U.cat && n ? `${I.info}<div>These ${n} photo${n > 1 ? 's' : ''} will be numbered <b class="mono">${fmtId(U.cat, nextIdFor(U.cat))}</b>${n > 1 ? ` to <b class="mono">${fmtId(U.cat, nextIdFor(U.cat) + n - 1)}</b>` : ''} (exact numbers are confirmed by the server).</div>` : `${I.info}<div>Choose a category to see the image numbers these photos will get.</div>`;
+    $('#u-go').disabled = U.running || !U.cat || !n;
+    $('#u-sum').textContent = U.files.length ? U.files.length + ' file' + (U.files.length > 1 ? 's' : '') + ' · ' + kb(U.files.reduce((a, f) => a + f.file.size, 0)) : '';
+  };
+  const drawList = () => {
+    $('#u-list').innerHTML = U.files.map((f, k) => `<div class="up-row"><img src="${f.url}" alt=""><div style="display:grid;gap:4px"><input class="in" data-k="${k}" value="${esc(f.name)}" ${f.id || U.running ? 'disabled' : ''} placeholder="Display name"><span class="small muted">${esc(f.file.name)} · ${kb(f.file.size)}</span></div><div class="st ${f.cls || ''}">${f.status || (U.running ? '' : `<button class="icon-btn" data-rm="${k}" title="Remove">${I.x}</button>`)}</div></div>`).join('');
+    drawIds();
+  };
+  const add = files => {
+    [...files].forEach(file => {
+      if (!/^image\/(jpeg|png|webp)$/.test(file.type)) { toast(esc(file.name) + ': only JPG, PNG or WebP', 'err'); return; }
+      U.files.push({ file, url: URL.createObjectURL(file), name: file.name.replace(/\.[^.]+$/, '').replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim() });
+    });
+    drawList();
+  };
+  drawSub(); if (fileList) add(fileList); else drawList();
+  $('#u-drop', el).onclick = () => { input.value = ''; input.onchange = () => add(input.files); input.click(); };
+  const dz = $('#u-drop', el);
+  dz.ondragover = e => { e.preventDefault(); dz.classList.add('on'); };
+  dz.ondragleave = () => dz.classList.remove('on');
+  dz.ondrop = e => { e.preventDefault(); e.stopPropagation(); dz.classList.remove('on'); add(e.dataTransfer.files); };
+  $('#u-cat', el).onchange = e => { U.cat = e.target.value; U.sub = ''; drawSub(); drawIds(); };
+  $('#u-sub', el).onchange = e => { U.sub = e.target.value; };
+  $('#u-prj', el).onchange = e => { U.prj = e.target.value; $('#u-prj-opts').hidden = !U.prj; };
+  $('#u-list', el).addEventListener('input', e => { const k = e.target.dataset.k; if (k != null) U.files[k].name = e.target.value; });
+  $('#u-list', el).addEventListener('click', e => { const b = e.target.closest('[data-rm]'); if (b) { U.files.splice(Number(b.dataset.rm), 1); drawList(); } });
+  $('#u-go', el).onclick = async () => {
+    U.running = true; U.status = $('#u-status').value; U.convert = $('#u-conv').checked; U.gallery = $('#u-gal').checked; U.role = $('#u-role').value;
+    $$('select,input', $('.modal-b', el)).forEach(x => { if (!x.closest('#u-list')) x.disabled = true; });
+    drawList();
+    const opts = { max: Number(st.upload_max_px) || 2400, q: Number(st.webp_quality) || 0.86, convert: U.convert };
+    for (const f of U.files) {
+      if (f.id) continue;
+      try {
+        f.status = 'Optimising…'; f.cls = ''; drawList();
+        const p = await processFile(f.file, opts);
+        f.status = 'Uploading ' + kb(p.bytes) + '…'; drawList();
+        const img = await call('uploadImage', { name: f.file.name, mime: p.mime, data: p.data, width: p.width, height: p.height, category_code: U.cat, subcategory: U.sub, project_no: U.prj, add_to_gallery: !!(U.prj && U.gallery), role: U.role, display_name: f.name, alt_text: f.name, status: U.status });
+        f.id = img.image_id; f.status = '✓ ' + img.image_id; f.cls = 'ok';
+        S.d.images.push(img); U.done.push(img.image_id);
+        const c = S.d.counters.find(x => x.prefix === U.cat); if (c) c.last_seq = Math.max(Number(c.last_seq), img.seq);
+      } catch (e) { f.status = '✕ ' + (e.message || e); f.cls = 'bad'; }
+      drawList();
+    }
+    U.running = false;
+    const ok = U.done.length, bad = U.files.filter(f => !f.id).length;
+    $('.modal-f', el).innerHTML = `<span class="left small">${ok} uploaded${bad ? ` · <b style="color:var(--bad)">${bad} failed</b>` : ''}</span><button class="btn" data-close>Close</button>${ok ? `<button class="btn btn-primary" id="u-show">Show &amp; select uploaded images</button>` : ''}`;
+    const sh = $('#u-show', el);
+    if (sh) sh.onclick = () => { m.close(); S.only = new Set(U.done); S.sel = new Set(U.done); go('library'); refresh(); };
+    toast(ok + ' image' + (ok === 1 ? '' : 's') + ' uploaded' + (ok ? ': ' + esc(U.done[0]) + (ok > 1 ? ' … ' + esc(U.done[ok - 1]) : '') : ''), bad ? 'err' : 'ok');
+    if (!sh) refresh();
+  };
+}
+function readAsDataURL(blob) { return new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = () => rej(new Error('Could not read file')); r.readAsDataURL(blob); }); }
+function loadImg(url) { return new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = () => rej(new Error('Not a readable image')); im.src = url; }); }
+const canvasBlob = (cv, type, q) => new Promise(r => cv.toBlob(r, type, q));
+async function processFile(file, o) {
+  const url = URL.createObjectURL(file);
+  try {
+    const im = await loadImg(url);
+    const w = im.naturalWidth, h = im.naturalHeight;
+    const keep = async () => ({ data: await readAsDataURL(file), mime: file.type, width: w, height: h, bytes: file.size });
+    if (!o.convert) return keep();
+    const sc = Math.min(1, o.max / Math.max(w, h)), cw = Math.round(w * sc), ch = Math.round(h * sc);
+    const cv = document.createElement('canvas'); cv.width = cw; cv.height = ch;
+    const cx = cv.getContext('2d'); cx.imageSmoothingEnabled = true; cx.imageSmoothingQuality = 'high'; cx.drawImage(im, 0, 0, cw, ch);
+    let blob = await canvasBlob(cv, 'image/webp', o.q);
+    if (!blob || blob.type !== 'image/webp') blob = await canvasBlob(cv, file.type === 'image/png' ? 'image/png' : 'image/jpeg', 0.9);   // browsers without WebP encoding (older Safari)
+    if (!blob) return keep();
+    if (sc === 1 && file.size <= blob.size) return keep();   // original is already smaller
+    return { data: await readAsDataURL(blob), mime: blob.type, width: cw, height: ch, bytes: blob.size };
+  } finally { URL.revokeObjectURL(url); }
+}
+
+/* ---------------- Replace ---------------- */
+function replaceImage(id) {
+  const input = $('#file-replace'); input.value = '';
+  input.onchange = async () => {
+    const file = input.files[0]; if (!file) return;
+    const img = S.img[id];
+    const asked = confirmBox('Replace ' + id + '?', `<div class="diff"><img src="${esc(src(img, 400))}" style="width:100%;border-radius:8px" alt=""><span>${I.right}</span><img id="rp-new" style="width:100%;border-radius:8px" alt=""></div><p class="small">The file is replaced but <b>${id}</b>, its name, category and every placement stay the same. ${used(id) ? `It is used in ${used(id)} place(s); they will show the new photo after you publish.` : ''}</p>`, 'Replace file');
+    const pv = $('#rp-new'), pvUrl = URL.createObjectURL(file); if (pv) pv.src = pvUrl;
+    const ok = await asked; URL.revokeObjectURL(pvUrl);
+    if (!ok) return;
+    try {
+      toast('Uploading replacement for ' + id + '…');
+      const p = await processFile(file, { max: Number(S.d.settings.upload_max_px) || 2400, q: Number(S.d.settings.webp_quality) || 0.86, convert: true });
+      await call('replaceImage', { image_id: id, name: file.name, mime: p.mime, data: p.data, width: p.width, height: p.height });
+      toast(id + ' replaced — the ID is unchanged. Publish to update the website.', 'ok');
+      refresh();
+    } catch (e) { fail(e); }
+  };
+  input.click();
+}
+
+/* ---------------- Edit ---------------- */
+function openEdit(id) {
+  const i = S.img[id]; if (!i) return;
+  const u = S.use[id] || { slots: [], featured: [], gallery: [] };
+  const m = modal(`<div class="modal-h"><span class="id">${i.image_id}</span><h2>${esc(i.display_name)}</h2><button class="icon-btn" data-close>${I.x}</button></div>
+    <div class="modal-b"><div class="grid cols-2">
+      <div class="grid" style="align-content:start;gap:10px">
+        <img src="${esc(src(i, 1200))}" alt="" style="width:100%;border-radius:10px;background:var(--soft)">
+        <div class="small muted">${i.width ? i.width + '×' + i.height + 'px · ' : ''}${i.bytes ? kb(i.bytes) + ' · ' : ''}${esc(i.mime || '')}<br>
+          File: ${esc(i.original_filename)} · ${i.source === 'drive' ? 'Google Drive' : 'original website file <code>' + esc(i.url) + '</code>'}<br>
+          Uploaded ${fmtDate(i.upload_date)} · updated ${fmtTime(i.updated_at)}<br>Permanent database ID: <code>${esc(i.uid)}</code></div>
+        ${i.notes ? `<div class="alert">${I.warn}<div>${esc(i.notes)}</div></div>` : ''}
+        <div><b class="small">Where it is used</b><div class="uses" style="display:flex;flex-wrap:wrap;gap:5px;margin-top:6px">
+          ${u.slots.map(k => `<span class="chip link" data-act="goto-slot" data-key="${esc(k)}" data-close>${esc(k)}</span>`).join('')}
+          ${u.featured.map(p => `<span class="chip gold">${esc(p)} featured image</span>`).join('')}${[...new Set(u.gallery)].map(p => `<span class="chip gold">${esc(p)} gallery</span>`).join('')}
+          ${used(id) ? '' : '<span class="muted small">Not used on the website</span>'}</div></div>
+      </div>
+      <form id="ed-form" class="grid" style="align-content:start">
+        <label class="f"><span>Image name</span><input class="in" name="display_name" value="${esc(i.display_name)}"></label>
+        <label class="f"><span>Alt text (describes the photo for Google &amp; screen readers)</span><textarea class="in" name="alt_text" rows="2">${esc(i.alt_text)}</textarea></label>
+        <label class="f"><span>Main category</span><select class="in" name="category_code">${catOptions(i.category_code)}</select><small class="muted">Changing the category keeps the ID ${i.image_id}.</small></label>
+        <label class="f"><span>Subcategory</span><select class="in" name="subcategory">${subOptions(i.category_code, i.subcategory)}</select></label>
+        <label class="f"><span>Project</span><select class="in" name="project_no">${prjOptions(i.project_no)}</select></label>
+        <label class="f"><span>Status</span><select class="in" name="status">${opt('active', 'Active — can appear on the website', i.status)}${opt('inactive', 'Inactive — hidden from the website', i.status)}${opt('archived', 'Archived — hidden from library & website', i.status)}</select></label>
+        <label class="f"><span>Notes</span><textarea class="in" name="notes" rows="2">${esc(i.notes)}</textarea></label>
+      </form></div></div>
+    <div class="modal-f"><button class="btn btn-danger left" data-act="delete" data-id="${id}" data-close>${I.trash} Delete</button>
+      <button class="btn" data-act="replace" data-id="${id}" data-close>${I.repl} Replace file</button>
+      <button class="btn" data-act="place-image" data-id="${id}" data-close>${I.place} Place on website</button>
+      <button class="btn btn-primary" id="ed-save">Save</button></div>`, 'wide');
+  const f = $('#ed-form', m.el);
+  f.category_code.onchange = () => { f.subcategory.innerHTML = subOptions(f.category_code.value, ''); };
+  $('#ed-save', m.el).onclick = () => {
+    const fields = {}; ['display_name', 'alt_text', 'category_code', 'subcategory', 'project_no', 'status', 'notes'].forEach(k => { fields[k] = f[k].value; });
+    call('updateImage', { image_id: id, fields }).then(() => { m.close(); toast(id + ' saved', 'ok'); refresh(); }).catch(fail);
+  };
+}
+
+/* ---------------- Delete ---------------- */
+async function deleteImages(ids) {
+  const ok = await confirmBox('Delete ' + (ids.length === 1 ? ids[0] : ids.length + ' images') + '?', `<p>The file${ids.length > 1 ? 's go' : ' goes'} to the Google Drive trash (recoverable for 30 days). The image number${ids.length > 1 ? 's are' : ' is'} retired and never reused.</p>`, 'Delete', true);
+  if (!ok) return;
+  try {
+    let r = await call('deleteImages', { ids });
+    if (r.needsConfirm) {
+      const list = r.usage.map(u => `<li><span class="id">${esc(u.image_id)}</span> ${u.slots.map(k => `<span class="chip">${esc(k)}</span>`).join(' ')} ${u.featured.map(p => `<span class="chip gold">${esc(p)} ★</span>`).join(' ')} ${u.gallery.map(p => `<span class="chip gold">${esc(p)}</span>`).join(' ')}</li>`).join('');
+      const force = await confirmBox('Image in use on the website', `<div class="alert">${I.warn}<div>These images are still used. If you delete them, those spots fall back to their built-in images (after you publish).</div></div><ul style="display:grid;gap:8px;padding-left:18px">${list}</ul>`, 'Delete anyway', true);
+      if (!force) return;
+      r = await call('deleteImages', { ids, force: true });
+    }
+    ids.forEach(id => S.sel.delete(id));
+    toast(r.deleted + ' deleted', 'ok'); refresh();
+  } catch (e) { fail(e); }
+}
+
+/* ---------------- Picker ---------------- */
+function openPicker(o) {
+  const P = { q: '', cat: o.cat || '', sel: new Set(o.selected || []), limit: 150 };
+  const m = modal(`<div class="modal-h"><h2>${esc(o.title)}</h2><button class="icon-btn" data-close>${I.x}</button></div>
+    <div class="modal-b">${o.hint ? `<div class="small muted">${o.hint}</div>` : ''}
+      <div class="toolbar" style="margin:0"><div class="search">${I.search}<input class="in" id="pk-q" placeholder="Search ID, name or subcategory…"></div><select class="in" id="pk-cat">${catOptions(P.cat, 'All categories')}</select>
+      <button class="btn" id="pk-up">${I.up} Upload new</button></div>
+      <div class="picker-grid" id="pk-grid"></div></div>
+    <div class="modal-f"><span class="left small muted" id="pk-n"></span><button class="btn" data-close>Cancel</button>${o.multi ? '<button class="btn btn-primary" id="pk-ok">Add selected</button>' : ''}</div>`, 'wide');
+  const el = m.el;
+  const draw = () => {
+    const q = P.q.toLowerCase();
+    const l = S.d.images.filter(i => i.status !== 'archived' && (!P.cat || i.category_code === P.cat) && (!q || (i.image_id + ' ' + i.display_name + ' ' + i.subcategory).toLowerCase().includes(q)))
+      .sort((a, b) => (a.status === 'active' ? 0 : 1) - (b.status === 'active' ? 0 : 1) || String(b.upload_date).localeCompare(String(a.upload_date)) || a.prefix.localeCompare(b.prefix) || a.seq - b.seq);
+    $('#pk-grid', el).innerHTML = l.slice(0, P.limit).map(i => {
+      const small = o.minW && i.width && i.width < o.minW * 0.6;
+      return `<div class="pk ${P.sel.has(i.image_id) ? 'on' : ''}" data-pk="${i.image_id}"><img loading="lazy" src="${esc(src(i, 320))}" alt="" ${i.status !== 'active' ? 'style="opacity:.5"' : ''}><div><b>${i.image_id}</b> ${o.current === i.image_id ? '<span class="chip ok">current</span>' : ''}<br>${esc(i.display_name)}${i.status !== 'active' ? '<br><span class="small-warn">inactive</span>' : ''}${small ? '<br><span class="small-warn">small: ' + i.width + 'px wide</span>' : ''}</div></div>`;
+    }).join('') + (l.length > P.limit ? `<button class="btn" id="pk-more" style="grid-column:1/-1">Show more (${l.length - P.limit})</button>` : '') || '<div class="empty-state" style="grid-column:1/-1"><b>No images</b>Try another category or upload one.</div>';
+    $('#pk-n', el).textContent = o.multi ? P.sel.size + ' selected' : l.length + ' images';
+  };
+  $('#pk-q', el).oninput = e => { P.q = e.target.value; draw(); };
+  $('#pk-cat', el).onchange = e => { P.cat = e.target.value; draw(); };
+  $('#pk-up', el).onclick = () => { m.close(); openUpload(); };
+  $('#pk-grid', el).addEventListener('click', e => {
+    if (e.target.id === 'pk-more') { P.limit += 150; draw(); return; }
+    const c = e.target.closest('[data-pk]'); if (!c) return;
+    const id = c.dataset.pk;
+    if (!o.multi) { m.close(); o.onPick(id); return; }
+    P.sel.has(id) ? P.sel.delete(id) : P.sel.add(id); draw();
+  });
+  if (o.multi) $('#pk-ok', el).onclick = () => { m.close(); o.onPick([...P.sel]); };
+  draw(); setTimeout(() => $('#pk-q', el).focus(), 50);
+}
+
+/* ---------------- Place an image on the website ---------------- */
+function openPlaceImage(id) {
+  const img = S.img[id]; if (!img) return;
+  const m = modal(`<div class="modal-h"><span class="id">${id}</span><h2>Place on the website</h2><button class="icon-btn" data-close>${I.x}</button></div>
+    <div class="modal-b"><div class="toolbar" style="margin:0"><img src="${esc(src(img, 320))}" alt="" style="width:120px;border-radius:8px"><div><b>${esc(img.display_name)}</b><div class="small muted">Choose where this image should appear. The current image of that spot is replaced (it stays in the library).</div></div></div>
+      <label class="f"><span>Page</span><select class="in" id="pl-page">${S.pages.map(p => opt(p.page, p.page, '')).join('')}</select></label>
+      <div class="slots" id="pl-slots" style="grid-template-columns:repeat(auto-fill,minmax(190px,1fr))"></div></div>
+    <div class="modal-f"><button class="btn" data-close>Close</button></div>`, 'wide');
+  const draw = () => {
+    const p = S.pages.find(x => x.page === $('#pl-page', m.el).value);
+    $('#pl-slots', m.el).innerHTML = p.slots.map(s => { const cur = s.image_id ? S.img[s.image_id] : null; return `<div class="pk ${s.image_id === id ? 'on' : ''}" data-key="${esc(s.slot_key)}">${cur ? `<img src="${esc(src(cur, 320))}" alt="">` : '<div class="thumb" style="aspect-ratio:4/3"></div>'}<div><b>${esc(s.slot_key)}</b><br>${esc(s.section)} · ${esc(s.label)}${s.image_id === id ? '<br><span class="chip ok">already here</span>' : ''}</div></div>`; }).join('');
+  };
+  $('#pl-page', m.el).onchange = draw; draw();
+  $('#pl-slots', m.el).addEventListener('click', e => { const c = e.target.closest('[data-key]'); if (!c) return; assign(c.dataset.key, id).then(() => draw()); });
+}
+function assign(key, id) {
+  return call('assignSlot', { slot_key: key, image_id: id || '' }).then(r => {
+    const s = S.d.slots.find(x => x.slot_key === key); if (s) Object.assign(s, r);
+    toast(id ? `<b>${esc(id)}</b> → ${esc(key)} (draft — publish to go live)` : esc(key) + ' returned to its built-in image (draft)', 'ok');
+    return refresh();
+  }).catch(fail);
+}
+
+/* ---------------- Preview lightbox ---------------- */
+function openLightbox(id) {
+  let list = S.view === 'library' ? filteredImages() : S.d.images, k = list.findIndex(i => i.image_id === id);
+  if (k < 0) { list = [S.img[id]]; k = 0; }
+  const lb = document.createElement('div'); lb.className = 'lightbox';
+  const draw = () => {
+    const i = list[k];
+    lb.innerHTML = `<div class="lb-h"><span class="id gold">${i.image_id}</span><b>${esc(i.display_name)}</b><span class="muted small" style="color:rgba(255,255,255,.6)">${esc(catName(i.category_code))} › ${esc(i.subcategory || '—')}</span><span class="sp"></span><button class="btn btn-sm" data-lb-edit>${I.edit} Edit</button><a class="icon-btn" href="${esc(src(i, 2400))}" target="_blank" title="Open full size">${I.ext}</a><button class="icon-btn" data-lb-x>${I.x}</button></div>
+      <div class="lb-s"><img src="${esc(src(i, 2000))}" alt=""></div>
+      <div class="lb-f">${k + 1} / ${list.length} · ${i.width ? i.width + '×' + i.height + 'px · ' : ''}${((S.use[i.image_id] || {}).slots || []).join(', ') || 'not placed on the website'} · <span class="kbd">←</span> <span class="kbd">→</span> <span class="kbd">Esc</span></div>
+      ${list.length > 1 ? `<button class="nav-b" data-lb-p style="left:14px">${I.left}</button><button class="nav-b" data-lb-n style="right:14px">${I.right}</button>` : ''}`;
+  };
+  const close = () => { lb.remove(); document.removeEventListener('keydown', key); };
+  const key = e => { if (e.key === 'Escape') close(); if (e.key === 'ArrowRight') { k = (k + 1) % list.length; draw(); } if (e.key === 'ArrowLeft') { k = (k - 1 + list.length) % list.length; draw(); } };
+  lb.addEventListener('click', e => {
+    if (e.target.closest('[data-lb-x]') || e.target.classList.contains('lb-s')) close();
+    else if (e.target.closest('[data-lb-n]')) { k = (k + 1) % list.length; draw(); }
+    else if (e.target.closest('[data-lb-p]')) { k = (k - 1 + list.length) % list.length; draw(); }
+    else if (e.target.closest('[data-lb-edit]')) { const id2 = list[k].image_id; close(); openEdit(id2); }
+  });
+  document.addEventListener('keydown', key);
+  document.body.appendChild(lb); draw();
+}
+
+/* ---------------- Project editor ---------------- */
+function openProject(no) {
+  const src0 = no ? S.prj[no] : { project_no: '', slug: '', name: '', category: '', location: '', description: '', featured_image_id: '', status: 'Design visualisation', year: '', featured: 'FALSE', published: 'TRUE' };
+  const P = JSON.parse(JSON.stringify(src0));
+  let photos = no ? (S.prjImgs[no] || []).map(r => ({ image_id: r.image_id, role: r.role || 'gallery' })) : [];
+  const cats = [...new Set(S.d.projects.map(p => p.category).filter(Boolean))];
+  const m = modal(`<div class="modal-h">${no ? `<span class="id">${esc(no)}</span>` : '<span class="id gold">NEW</span>'}<h2>${no ? esc(P.name) : 'New project'}</h2><button class="icon-btn" data-close>${I.x}</button></div>
+    <div class="modal-b"><form id="pj" class="grid cols-2">
+      <label class="f"><span>Project name <em>*</em></span><input class="in" name="name" value="${esc(P.name)}" required></label>
+      <label class="f"><span>Category</span><input class="in" name="category" list="pj-cats" value="${esc(P.category)}"><datalist id="pj-cats">${cats.map(c => `<option value="${esc(c)}">`).join('')}</datalist></label>
+      <label class="f"><span>Location</span><input class="in" name="location" value="${esc(P.location)}" placeholder="e.g. Bengaluru (shown on the project page)"></label>
+      <label class="f"><span>Year</span><input class="in" name="year" value="${esc(P.year)}" placeholder="e.g. 2025"></label>
+      <label class="f"><span>Completion status</span><select class="in" name="status">${['Design visualisation', 'Construction stage', 'Ongoing', 'Completed'].map(s => opt(s, s, P.status)).join('')}</select></label>
+      <label class="f"><span>Website page address</span><input class="in mono" name="slug" value="${esc(P.slug)}" ${no && P.slug ? 'readonly' : ''} placeholder="e.g. peb-factory-hosur"><small class="muted">${no && P.slug ? 'Fixed — keeps the existing URL.' : 'Only existing project pages show on the website; new pages are added in _build/build.ps1.'}</small></label>
+      <label class="f" style="grid-column:1/-1"><span>Description</span><textarea class="in" name="description" rows="3">${esc(P.description)}</textarea></label>
+      <div class="toolbar" style="grid-column:1/-1;margin:0"><label class="chk"><input type="checkbox" name="featured" ${truthy(P.featured) ? 'checked' : ''}> Featured project</label><label class="chk"><input type="checkbox" name="published" ${truthy(P.published) ? 'checked' : ''}> Published (shown in the portfolio)</label></div>
+    </form>
+    <div class="grid cols-2" style="align-items:start">
+      <div><b class="small">Main featured image</b><div id="pj-feat" style="margin-top:8px"></div></div>
+      <div><div class="toolbar" style="margin:0 0 8px"><b class="small">Project photographs</b><span class="small muted">drag to reorder</span><button class="btn btn-sm" id="pj-add" style="margin-left:auto">${I.plus} Add photos</button></div><div class="prj-photos" id="pj-photos"></div></div>
+    </div></div>
+    <div class="modal-f">${no ? `<button class="btn btn-danger left" id="pj-del">${I.trash} Delete project</button>` : ''}<button class="btn" data-close>Cancel</button><button class="btn btn-primary" id="pj-save">Save as draft</button></div>`, 'wide');
+  const el = m.el;
+  const drawFeat = () => {
+    const i = S.img[P.featured_image_id];
+    $('#pj-feat', el).innerHTML = `<div class="slot" style="max-width:360px"><div class="thumb" data-pj-feat>${i ? `<img src="${esc(src(i, 640))}" alt="">` : '<div class="empty">No featured image — click to choose</div>'}<div class="tl">${i ? `<span class="id">${i.image_id}</span>` : ''}</div></div><div class="card-f"><button class="btn btn-sm" data-pj-feat>Choose…</button>${i ? `<span class="small muted" style="margin-left:6px">${esc(i.display_name)}</span>` : ''}</div></div>`;
+  };
+  const drawPhotos = () => {
+    $('#pj-photos', el).innerHTML = photos.map((p, k) => { const i = S.img[p.image_id]; return `<div class="prj-ph" draggable="true" data-k="${k}"><span class="grip">${I.grip}</span>${i ? `<img src="${esc(src(i, 200))}" alt="">` : '<div></div>'}<div class="small"><span class="id">${esc(p.image_id)}</span><br>${esc(i ? i.display_name : 'missing')}</div><select class="in" data-role="${k}">${opt('gallery', 'Gallery', p.role)}${opt('before', 'Before', p.role)}${opt('after', 'After', p.role)}</select><button class="icon-btn" data-rm="${k}" title="Remove">${I.x}</button></div>`; }).join('') || '<div class="small muted">No photos yet. The page keeps its current gallery until you add some.</div>';
+  };
+  drawFeat(); drawPhotos();
+  el.addEventListener('click', e => {
+    if (e.target.closest('[data-pj-feat]')) openPicker({ title: 'Featured image for ' + (P.name || 'project'), current: P.featured_image_id, cat: (S.img[P.featured_image_id] || {}).category_code || '', onPick: id => { P.featured_image_id = id; drawFeat(); } });
+    const rm = e.target.closest('[data-rm]'); if (rm) { photos.splice(Number(rm.dataset.rm), 1); drawPhotos(); }
+  });
+  $('#pj-photos', el).addEventListener('change', e => { const k = e.target.dataset.role; if (k != null) photos[k].role = e.target.value; });
+  let dragK = null;
+  $('#pj-photos', el).addEventListener('dragstart', e => { const r = e.target.closest('.prj-ph'); if (r) { dragK = Number(r.dataset.k); e.dataTransfer.setData('text/plain', 'PJ'); } });
+  $('#pj-photos', el).addEventListener('dragover', e => { const r = e.target.closest('.prj-ph'); if (r && dragK != null) { e.preventDefault(); $$('.prj-ph', el).forEach(x => x.classList.toggle('drag-over', x === r)); } });
+  $('#pj-photos', el).addEventListener('drop', e => { const r = e.target.closest('.prj-ph'); if (!r || dragK == null) return; e.preventDefault(); const to = Number(r.dataset.k); const [it] = photos.splice(dragK, 1); photos.splice(to, 0, it); dragK = null; drawPhotos(); });
+  $('#pj-add', el).onclick = () => openPicker({ title: 'Add photos to ' + (P.name || 'project'), multi: true, cat: 'PROJECT', selected: [], onPick: ids => { ids.forEach(id => { if (!photos.some(p => p.image_id === id)) photos.push({ image_id: id, role: 'gallery' }); }); drawPhotos(); } });
+  $('#pj-save', el).onclick = async () => {
+    const f = $('#pj', el); if (!f.name.value.trim()) { toast('Project name is required', 'err'); return; }
+    const data = { project_no: P.project_no, name: f.name.value.trim(), category: f.category.value, location: f.location.value, year: f.year.value, status: f.status.value, slug: f.slug.value.trim().toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/^-|-$/g, ''), description: f.description.value, featured: f.featured.checked, published: f.published.checked, featured_image_id: P.featured_image_id };
+    try {
+      const r = await call('saveProject', { project: data });
+      await call('setProjectImages', { project_no: r.project_no, items: photos });
+      m.close(); toast(r.project_no + ' saved as draft — publish to update the website', 'ok'); refresh();
+    } catch (e) { fail(e); }
+  };
+  const del = $('#pj-del', el);
+  if (del) del.onclick = async () => { if (await confirmBox('Delete ' + no + '?', '<p>The project record and its photo list are removed. The images stay in the library. The project number is never reused.</p>', 'Delete project', true)) { call('deleteProject', { project_no: no }).then(() => { m.close(); toast(no + ' deleted', 'ok'); refresh(); }).catch(fail); } };
+}
+
+/* ---------------- Publish & preview ---------------- */
+async function doPublish() {
+  const n = S.d.pending.count;
+  const ok = await confirmBox('Publish to the live website?', `<p><b>${n} change${n === 1 ? '' : 's'}</b> will go live on <b>${esc(S.d.settings.site_url)}</b>. New visitors see them immediately; returning visitors within about 10 minutes.</p>`, 'Publish now');
+  if (!ok) return;
+  try { const r = await call('publish'); toast(`Published v${r.v} — the website is updated.`, 'ok'); refresh(); } catch (e) { fail(e); }
+}
+function preview() {
+  window.open(siteLink('/', 'cms_preview=' + encodeURIComponent(S.token)), '_blank');
+  toast('Preview opened in a new tab. Browse any page — only your browser sees the drafts.');
+}
+
+/* =====================================================================
+   EVENTS
+   ===================================================================== */
+const ACT = {
+  nav: t => { S.only = null; go(t.dataset.v); },
+  logout: () => logout(),
+  upload: () => openUpload(),
+  more: () => { S.limit += 120; renderView(); },
+  reorder: () => { S.reorder = !S.reorder; if (S.reorder) S.f.sort = 'order'; renderView(); },
+  'save-order': () => { const ids = $$('#cards .card').map(c => c.dataset.id); call('setOrder', { ids }).then(() => { toast('Order saved', 'ok'); S.reorder = false; refresh(); }).catch(fail); },
+  'clear-only': () => { S.only = null; renderView(); },
+  'lib-filter': t => { S.only = null; S.f = { q: '', cat: '', sub: '', prj: '', page: '', status: '', sort: 'order' }; S.f[t.dataset.k] = t.dataset.val; go('library'); },
+  preview: t => openLightbox(t.dataset.id),
+  edit: t => openEdit(t.dataset.id),
+  replace: t => replaceImage(t.dataset.id),
+  delete: t => deleteImages([t.dataset.id]),
+  'bulk-delete': () => deleteImages([...S.sel]),
+  'place-image': t => openPlaceImage(t.dataset.id),
+  'sel-none': () => { S.sel.clear(); renderView(); },
+  'bulk-cat': () => {
+    const cat = $('#b-cat').value, sub = $('#b-sub').value; if (!cat) { toast('Choose a category', 'err'); return; }
+    call('bulkUpdate', { ids: [...S.sel], fields: { category_code: cat, subcategory: sub } }).then(r => { toast(r.updated + ' images moved to ' + esc(catName(cat)) + (sub ? ' › ' + esc(sub) : '') + ' (IDs unchanged)', 'ok'); refresh(); }).catch(fail);
+  },
+  'bulk-status': t => call('bulkUpdate', { ids: [...S.sel], fields: { status: t.dataset.val } }).then(r => { toast(r.updated + ' images set to ' + t.dataset.val, 'ok'); refresh(); }).catch(fail),
+  'bulk-prj': async () => {
+    const no = $('#b-prj').value; if (!no) { toast('Choose a project', 'err'); return; }
+    const cur = (S.prjImgs[no] || []).map(r => ({ image_id: r.image_id, role: r.role }));
+    [...S.sel].forEach(id => { if (!cur.some(c => c.image_id === id)) cur.push({ image_id: id, role: 'gallery' }); });
+    try { await call('bulkUpdate', { ids: [...S.sel], fields: { project_no: no } }); await call('setProjectImages', { project_no: no, items: cur }); toast('Added to ' + no + ' gallery', 'ok'); refresh(); } catch (e) { fail(e); }
+  },
+  download: () => {
+    toast('Preparing ZIP…');
+    call('downloadZip', { ids: [...S.sel] }).then(r => {
+      const bin = atob(r.data), arr = new Uint8Array(bin.length); for (let k = 0; k < bin.length; k++) arr[k] = bin.charCodeAt(k);
+      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([arr], { type: 'application/zip' })); a.download = r.name; document.body.appendChild(a); a.click(); a.remove();
+    }).catch(fail);
+  },
+  page: t => { S.page = t.dataset.page || null; renderNav(); renderTop(); renderView(); window.scrollTo(0, 0); },
+  tray: () => { S.tray = !S.tray; renderView(); },
+  'pick-slot': t => {
+    const s = S.d.slots.find(x => x.slot_key === t.dataset.key); const cur = s.image_id ? S.img[s.image_id] : null;
+    openPicker({ title: 'Choose image for ' + s.slot_key, current: s.image_id, minW: s.recommended_w, cat: cur ? cur.category_code : '', hint: `<b>${esc(s.page)}</b> · ${esc(s.section)} · ${esc(s.label)} — best size ${s.recommended_w}×${s.recommended_h}px`, onPick: id => assign(s.slot_key, id) });
+  },
+  'clear-slot': async t => { if (await confirmBox('Clear ' + t.dataset.key + '?', '<p>The website will show the built-in image for this spot (after publishing). The image itself stays in the library.</p>', 'Clear placement')) assign(t.dataset.key, ''); },
+  'goto-slot': t => { const s = S.d.slots.find(x => x.slot_key === t.dataset.key); if (!s) return; $$('.modal-bg').forEach(x => x.remove()); S.focusSlot = s.slot_key; go('placements', { page: s.page }); },
+  'prj-new': () => openProject(null),
+  'prj-edit': t => openProject(t.dataset.no),
+  'cat-edit': t => { const c = S.cat[t.dataset.code]; const n = prompt('Category name for ' + c.code, c.name); if (n && n !== c.name) call('saveCategory', { code: c.code, name: n, group: c.group, service_url: c.service_url }).then(() => { toast('Renamed', 'ok'); refresh(); }).catch(fail); },
+  'sub-edit': t => { const n = prompt('Rename subcategory (images keep it)', t.dataset.name); if (n && n !== t.dataset.name) call('saveSubcategory', { id: t.dataset.id, category_code: t.dataset.code, name: n }).then(() => { toast('Renamed', 'ok'); refresh(); }).catch(fail); },
+  'sub-del': async t => { if (await confirmBox('Delete subcategory?', '<p>Only possible when no image uses it.</p>', 'Delete', true)) call('deleteSubcategory', { id: t.dataset.id }).then(() => { toast('Deleted', 'ok'); refresh(); }).catch(fail); },
+  publish: () => doPublish(),
+  'preview-site': () => preview(),
+  copy: t => { navigator.clipboard.writeText(t.dataset.text).then(() => toast('Copied', 'ok'), () => prompt('Copy this:', t.dataset.text)); },
+  'admins-load': () => call('listAdmins').then(l => { $('#admins').innerHTML = `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Email</th><th>Name</th><th>Role</th><th>Active</th><th>Last login</th><th></th></tr></thead><tbody>${l.map(a => `<tr><td>${esc(a.email)}</td><td>${esc(a.name)}</td><td>${esc(a.role)}</td><td>${a.active ? '<span class="chip ok">active</span>' : '<span class="chip">disabled</span>'}</td><td class="small">${fmtTime(a.last_login)}</td><td>${a.email !== S.user.email ? `<button class="btn btn-sm" data-act="admin-toggle" data-email="${esc(a.email)}" data-name="${esc(a.name)}" data-role="${esc(a.role)}" data-on="${a.active ? 1 : 0}">${a.active ? 'Disable' : 'Enable'}</button>` : ''}</td></tr>`).join('')}</tbody></table></div>`; }).catch(fail),
+  'admin-toggle': t => call('saveAdmin', { email: t.dataset.email, name: t.dataset.name, role: t.dataset.role, active: t.dataset.on !== '1' }).then(() => { toast('Updated', 'ok'); ACT['admins-load'](); }).catch(fail),
+  'audit-load': () => call('auditLog').then(l => { $('#audit').innerHTML = `<div class="tbl-wrap" style="max-height:420px"><table class="tbl"><thead><tr><th>Time</th><th>User</th><th>Action</th><th>Details</th></tr></thead><tbody>${l.map(a => `<tr><td class="small" style="white-space:nowrap">${fmtTime(a.time)}</td><td class="small">${esc(String(a.user).split('@')[0])}</td><td><span class="chip">${esc(a.action)}</span></td><td class="small">${esc(a.details)}</td></tr>`).join('')}</tbody></table></div>`; }).catch(fail)
+};
+const CHG = {
+  f: t => { S.f[t.dataset.k] = t.value; if (t.dataset.k === 'cat') S.f.sub = ''; S.limit = 120; renderView(); },
+  sel: t => { t.checked ? S.sel.add(t.dataset.id) : S.sel.delete(t.dataset.id); renderView(); },
+  'sel-all': t => { filteredImages().forEach(i => t.checked ? S.sel.add(i.image_id) : S.sel.delete(i.image_id)); renderView(); },
+  status: t => call('updateImage', { image_id: t.dataset.id, fields: { status: t.checked ? 'active' : 'inactive' } }).then(() => { toast(t.dataset.id + (t.checked ? ' activated' : ' deactivated — hidden from the website after publishing'), 'ok'); refresh(); }).catch(e => { t.checked = !t.checked; fail(e); }),
+  'prj-flag': t => { const p = {}; p.project_no = t.dataset.no; p[t.dataset.k] = t.checked; call('saveProject', { project: p }).then(() => { toast(t.dataset.no + ' ' + t.dataset.k + ': ' + (t.checked ? 'on' : 'off') + ' (draft)', 'ok'); refresh(); }).catch(e => { t.checked = !t.checked; fail(e); }); }
+};
+let qTimer;
+const INP = { q: t => { clearTimeout(qTimer); qTimer = setTimeout(() => { S.f.q = t.value; S.limit = 120; const pos = t.selectionStart; renderView(); const i = $('[data-inp="q"]'); if (i) { i.focus(); i.setSelectionRange(pos, pos); } }, 220); } };
+
+document.addEventListener('click', e => { const t = e.target.closest('[data-act]'); if (!t || t.disabled) return; const fn = ACT[t.dataset.act]; if (fn) { e.preventDefault(); fn(t, e); } });
+document.addEventListener('change', e => { const t = e.target.closest('[data-chg]'); if (t && CHG[t.dataset.chg]) CHG[t.dataset.chg](t, e); });
+document.addEventListener('input', e => { const t = e.target.closest('[data-inp]'); if (t && INP[t.dataset.inp]) INP[t.dataset.inp](t, e); });
+// drag an image from the tray onto a placement
+document.addEventListener('dragstart', e => { const t = e.target.closest && e.target.closest('[data-drag-img]'); if (t) e.dataTransfer.setData('text/plain', 'IMG:' + t.dataset.dragImg); });
+document.addEventListener('dragover', e => {
+  const s = e.target.closest && e.target.closest('[data-drop-slot]');
+  if (s) { e.preventDefault(); $$('.slot.drop').forEach(x => x !== s && x.classList.remove('drop')); s.classList.add('drop'); return; }
+  if (S.view === 'library' && !S.reorder && e.dataTransfer && [...e.dataTransfer.types].includes('Files') && !$('.modal-bg')) { e.preventDefault(); $('#drop-overlay').hidden = false; }
+});
+document.addEventListener('dragleave', e => { const s = e.target.closest && e.target.closest('[data-drop-slot]'); if (s && !s.contains(e.relatedTarget)) s.classList.remove('drop'); if (!e.relatedTarget) $('#drop-overlay').hidden = true; });
+document.addEventListener('drop', e => {
+  $('#drop-overlay').hidden = true;
+  const s = e.target.closest && e.target.closest('[data-drop-slot]');
+  if (s) { e.preventDefault(); s.classList.remove('drop'); const d = e.dataTransfer.getData('text/plain'); if (d.indexOf('IMG:') === 0) assign(s.dataset.dropSlot, d.slice(4)); return; }
+  if (S.view === 'library' && e.dataTransfer.files.length && !$('.modal-bg')) { e.preventDefault(); openUpload(e.dataTransfer.files); }
+});
+
+/* ---------------- start ---------------- */
+S.token = store.get('cms_token');
+if (S.token) boot(); else showLogin();
+})();
+</script>

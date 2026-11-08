@@ -1,0 +1,83 @@
+<section class="ph ph-full">
+  <div class="ph-bg"><img data-project="{{P_SLUG}}" src="{{P_IMG}}" alt="{{P_TITLE}} — {{P_CATLABEL}} by SUBHA INFRA" width="{{P_W}}" height="{{P_H}}" fetchpriority="high" data-parallax="0.08"></div>
+  <div class="wrap ph-in">
+    <nav class="crumbs reveal" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/projects/">Projects</a><span aria-hidden="true">/</span><a href="/projects/#{{P_FILTER}}">{{P_CATLABEL}}</a></nav>
+    <span class="eyebrow mt-m reveal d1">{{P_CATLABEL}} · {{P_CODE}}</span>
+    <h1 class="h1 reveal d2" style="max-width:18ch">{{P_TITLE}}</h1>
+    <div class="ph-meta reveal d3">
+      <div><small>Category</small><span>{{P_CATLABEL}}</span></div>
+      <div><small>Status</small><span>{{P_STATUS}}</span></div>
+      <div><small>Studio</small><span>SUBHA INFRA</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec-sm sec-white">
+  <div class="wrap">
+    <dl class="facts reveal">
+      <div><dt>Project</dt><dd>{{P_TITLE}}</dd></div>
+      <div><dt>Category</dt><dd>{{P_CATLABEL}}</dd></div>
+      <div><dt>Location</dt><dd data-project-location="{{P_SLUG}}">Not published</dd></div>
+      <div><dt>Status</dt><dd>{{P_STATUS}}</dd></div>
+    </dl>
+    <div class="disclaimer mt-m reveal">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="8.5"/><path d="M10 9v5M10 6v.5"/></svg>
+      <p>{{P_DISCLAIMER}}</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="pd-body">
+      <aside class="pd-aside reveal">
+        <span class="eyebrow">Project overview</span>
+        <p class="statement mt-m" style="font-size:clamp(24px,2.4vw,36px)">{{P_CONCEPT}}</p>
+        <div class="actions mt-l">
+          <a class="btn" href="/contact/?category={{P_FILTER}}">Discuss a similar project {{AR}}</a>
+        </div>
+      </aside>
+      <div>
+        <section class="reveal">
+          <h2>Overview</h2>
+          <p>{{P_OVERVIEW}}</p>
+        </section>
+        <section class="reveal">
+          <h2>Scope of services</h2>
+          <ul class="ticks">{{P_SCOPE}}</ul>
+        </section>
+        <section class="reveal">
+          <h2>Architectural concept</h2>
+          <p>{{P_CONCEPT}}</p>
+        </section>
+        <section class="reveal">
+          <h2>Structural system</h2>
+          <p>{{P_STRUCT}}</p>
+        </section>
+        <section class="reveal">
+          <h2>Materials &amp; specifications</h2>
+          <ul class="ticks">{{P_MATERIALS}}</ul>
+        </section>
+        <section class="reveal">
+          <h2>Related services</h2>
+          <div class="actions">{{P_SERVICES}}</div>
+        </section>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-white">
+  <div class="wrap">
+    <div class="rail-head">
+      <div><span class="eyebrow">Gallery</span><h2 class="h2-s mt-s">{{P_CATLABEL}} — related imagery</h2></div>
+      <a class="link-arrow" href="/projects/#{{P_FILTER}}">All {{P_CATLABEL}} {{AR}}</a>
+    </div>
+    <div class="gal-grid" data-project-gallery="{{P_SLUG}}" data-cat="{{P_CATLABEL}}">{{P_GALLERY}}</div>
+  </div>
+</section>
+
+<section class="next-svc">
+  <a href="{{P_PREV_HREF}}"><img data-project="{{P_PREV_SLUG}}" src="{{P_PREV_IMG}}" alt="" loading="lazy"><small>Previous project</small><b>{{P_PREV_TITLE}}</b></a>
+  <a href="{{P_NEXT_HREF}}"><img data-project="{{P_NEXT_SLUG}}" src="{{P_NEXT_IMG}}" alt="" loading="lazy"><small>Next project</small><b>{{P_NEXT_TITLE}}</b></a>
+</section>
