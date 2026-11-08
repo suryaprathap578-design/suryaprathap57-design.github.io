@@ -2,7 +2,12 @@
 # Assembles _build/pages/*.html with shared partials into clean-URL folders (/about/index.html etc.),
 # generates one detail page per portfolio project, sitemap.xml and robots.txt.
 # Usage: powershell -ExecutionPolicy Bypass -File _build\build.ps1
+#   Site served from a sub-folder (e.g. a GitHub Pages project site without a custom domain):
+#   powershell -ExecutionPolicy Bypass -File _build\build.ps1 -Base /suryaprathap57-design.github.io
+#   Run again without -Base before serving from a domain root (www.subhainfra.com or localhost).
+param([string]$Base = '')
 $ErrorActionPreference = 'Stop'
+$Base = ('/' + $Base.Trim().Trim('/')).TrimEnd('/')   # '' or '/folder'
 Add-Type -AssemblyName System.Drawing
 $B = $PSScriptRoot
 $root = Split-Path -Parent $B
@@ -179,7 +184,8 @@ function Build-Page($file, $meta, $content) {
     $hd = $hd.Replace("{{CUR_$k}}", $(if ($meta.nav -eq $k) { 'aria-current="page"' } else { '' }))
   }
   $out = Expand ($h + $hd + $content + $footer)
-  $out = [regex]::Replace($out, ' >', '>')
+  $out = [regex]::Replace($out, ' >', '>').Replace('{{BASE}}', $Base)
+  if ($Base) { $out = [regex]::Replace($out, '((?:href|src|action)=")/(?!/)', ('$1' + $Base + '/')) }
   if ($out -match '\{\{[A-Z_0-9]+\}\}') { throw "Unresolved token in ${file}: $($Matches[0])" }
   $route = Route $file
   $dir = Join-Path $root $route.Trim('/')

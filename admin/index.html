@@ -17,7 +17,7 @@
   <p id="msg">Opening the admin panel…</p>
 </div>
 <!-- Sends the admin to the Google Apps Script CMS (URL set in js/site-config.js → cmsApi) -->
-<script src="/js/site-config.js"></script>
+<script src="../js/site-config.js"></script>
 <script>
   var url = (window.SITE_CONFIG && window.SITE_CONFIG.cmsApi || '').trim();
   if (url) location.replace(url);

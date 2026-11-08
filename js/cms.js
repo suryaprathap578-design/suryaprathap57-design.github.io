@@ -37,7 +37,9 @@
 
   /* ---------- image URLs ---------- */
   const tpl = () => (data && data.tpl) || 'https://lh3.googleusercontent.com/d/{id}=w{w}';
-  const urlFor = (m, w) => (m.d ? tpl().replace('{id}', m.d).replace('{w}', w) : m.u);
+  const BASE = String(window.SITE_BASE || '');   // '/folder' when the site is served from a sub-folder
+  const siteUrl = u => (u && u.charAt(0) === '/' && u.charAt(1) !== '/' ? BASE + u : u);
+  const urlFor = (m, w) => (m.d ? tpl().replace('{id}', m.d).replace('{w}', w) : siteUrl(m.u));
   const srcsetFor = m => {
     if (!m.d) return '';
     const max = Math.max(480, m.w || 2400);
@@ -73,14 +75,14 @@
     if (!m) { restore(el); return; }
     const o = remember(el);
     el.dataset.cmsId = m.i;
-    if (!m.d && m.u === o.src) { restore(el); el.dataset.cmsId = m.i; return; }   // same as the built-in image
+    if (!m.d && siteUrl(m.u) === o.src) { restore(el); el.dataset.cmsId = m.i; return; }   // same as the built-in image
     const ss2 = srcsetFor(m);
     if (ss2) { el.setAttribute('srcset', ss2); el.setAttribute('sizes', sizes || o.sizes || guessSizes(el)); } else { el.removeAttribute('srcset'); el.removeAttribute('sizes'); }
-    el.setAttribute('src', m.d ? urlFor(m, 1600) : m.u);
+    el.setAttribute('src', urlFor(m, 1600));
     if (o.w && m.w && m.h) { el.setAttribute('width', m.w); el.setAttribute('height', m.h); }
     if (o.alt !== '' && m.a) el.setAttribute('alt', m.a);
     const a = el.closest('a[data-lb]');
-    if (a) { a.setAttribute('href', m.d ? urlFor(m, 2400) : m.u); if (m.t) a.dataset.title = m.t; }
+    if (a) { a.setAttribute('href', urlFor(m, 2400)); if (m.t) a.dataset.title = m.t; }
     const slide = el.closest('.hh-slide');
     if (slide && (m.t || m.c)) {
       if (m.t) slide.dataset.title = m.t;
@@ -110,7 +112,7 @@
       const p = prj[box.dataset.projectGallery];
       if (!p || !p.gal || !p.gal.length) { if (box.dataset.cmsGal) { box.innerHTML = ORIG.get(box); delete box.dataset.cmsGal; $$('img[data-project]', box).forEach(el => setImg(el, (prj[el.dataset.project] || {}).img)); } return; }
       box.dataset.cmsGal = '1';
-      box.innerHTML = p.gal.map(m => '<a class="img zoom" href="' + esc(m.d ? urlFor(m, 2400) : m.u) + '" data-lb="g" data-title="' + esc(m.t || '') + '" data-cat="' + esc(m.r || box.dataset.cat || '') + '"><img data-cms-gal="' + esc(m.i) + '" src="' + esc(m.d ? urlFor(m, 1200) : m.u) + '"' + (m.d ? ' srcset="' + esc(srcsetFor(m)) + '" sizes="(max-width: 760px) 100vw, 50vw"' : '') + ' alt="' + esc(m.a || m.t || '') + '" loading="lazy"></a>').join('');
+      box.innerHTML = p.gal.map(m => '<a class="img zoom" href="' + esc(urlFor(m, 2400)) + '" data-lb="g" data-title="' + esc(m.t || '') + '" data-cat="' + esc(m.r || box.dataset.cat || '') + '"><img data-cms-gal="' + esc(m.i) + '" src="' + esc(urlFor(m, 1200)) + '"' + (m.d ? ' srcset="' + esc(srcsetFor(m)) + '" sizes="(max-width: 760px) 100vw, 50vw"' : '') + ' alt="' + esc(m.a || m.t || '') + '" loading="lazy"></a>').join('');
       $$('img', box).forEach((im, k) => { im.dataset.cmsId = p.gal[k].i; });
     });
     // Unpublished projects disappear from the portfolio grid (their page URL keeps working)

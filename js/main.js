@@ -11,7 +11,8 @@
   const inr = n => Math.round(n).toLocaleString('en-IN');
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const waLink = text => `https://wa.me/${String(CFG.whatsapp || '').replace(/\D/g, '')}?text=${encodeURIComponent(text || CFG.whatsappMessage || '')}`;
-  const asset = p => (/^(https?:|\/|data:)/i.test(String(p)) ? String(p) : '/' + String(p));
+  const BASE = String(window.SITE_BASE || '');   // '' at a domain root, '/folder' when served from a sub-folder
+  const asset = p => (/^(https?:|data:)/i.test(String(p)) ? String(p) : BASE + '/' + String(p).replace(/^\//, ''));
   const rateOf = path => path.split('.').reduce((o, k) => (o && o[k] !== undefined ? o[k] : undefined), CFG.rates || {});
 
   /* ---------- Apply site-config.js ---------- */
@@ -297,7 +298,7 @@
       $('[data-calc-wa]', box).href = waLink(msg);
       const q = new URLSearchParams({ package: `${CODE[t]}-${tier}` });
       if (CAT[t]) q.set('category', CAT[t]);
-      $('[data-calc-quote]', box).href = '/contact/?' + q.toString();
+      $('[data-calc-quote]', box).href = BASE + '/contact/?' + q.toString();
     };
 
     form.addEventListener('change', e => {
